@@ -1,6 +1,6 @@
 ---
 # Display name
-title: Nelson Bighetti
+title: Ryan Curtis
 
 # Username (this should match the folder name)
 authors:
@@ -10,32 +10,33 @@ authors:
 superuser: true
 
 # Role/position
-role: Professor of Artificial Intelligence
+role: Athletic Performance Data Manager
 
 # Organizations/Affiliations
 organizations:
-- name: Stanford University
-  url: ""
+- name: San Antonio Spurs
+  url: "https://www.nba.com/spurs/"
 
 # Short bio (displayed in user profile at end of posts)
 bio: My research interests include distributed robotics, mobile computing and programmable matter.
 
 interests:
-- Artificial Intelligence
-- Computational Linguistics
-- Information Retrieval
+- Sports Science
+- Analytics
+- Strength and Conditioning
+- Sports Medicine
 
 education:
   courses:
-  - course: PhD in Artificial Intelligence
-    institution: Stanford University
-    year: 2012
-  - course: MEng in Artificial Intelligence
-    institution: Massachusetts Institute of Technology
+  - course: PhD in Exercise Physiology
+    institution: University of Connecticut
+    year: 2019
+  - course: MS in kinesiology
+    institution: Kansas State University
     year: 2009
-  - course: BSc in Artificial Intelligence
-    institution: Massachusetts Institute of Technology
-    year: 2008
+  - course: BS in Athletic Training
+    institution: Culver-Stockton College
+    year: 2006
 
 # Social/Academic Networking
 # For available icons, see: https://sourcethemes.com/academic/docs/page-builder/#icons
