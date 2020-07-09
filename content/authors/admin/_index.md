@@ -18,7 +18,7 @@ organizations:
   url: "https://www.nba.com/spurs/"
 
 # Short bio (displayed in user profile at end of posts)
-bio: My research interests include distributed robotics, mobile computing and programmable matter.
+bio: Sports scientist, strength and conditioning coach, athletic trainer, researcher, author. Interested in all things related to optimizing performance and reducing injury in sport. R, Shiny, SQL, CSS, Tableau, Power BI 
 
 interests:
 - Sports Science
@@ -28,10 +28,10 @@ interests:
 
 education:
   courses:
-  - course: PhD in Exercise Physiology
+  - course: PhD in Exercise Science
     institution: University of Connecticut
     year: 2019
-  - course: MS in kinesiology
+  - course: MS in Kinesiology
     institution: Kansas State University
     year: 2009
   - course: BS in Athletic Training
@@ -45,16 +45,16 @@ education:
 social:
 - icon: envelope
   icon_pack: fas
-  link: '#contact'  # For a direct email link, use "mailto:test@example.org".
+  link: '#contact'  # For a direct email link, use "rmcurtis43@yahoo.com".
 - icon: twitter
   icon_pack: fab
-  link: https://twitter.com/GeorgeCushen
+  link: https://twitter.com/_RyanCurtis
 - icon: google-scholar
   icon_pack: ai
-  link: https://scholar.google.co.uk/citations?user=sIwtMXoAAAAJ
+  link: 
 - icon: github
   icon_pack: fab
-  link: https://github.com/gcushen
+  link: 
 # Link to a PDF of your resume/CV from the About widget.
 # To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.
 # - icon: cv
@@ -71,6 +71,6 @@ user_groups:
 - Visitors
 ---
 
-Nelson Bighetti is a professor of artificial intelligence at the Stanford AI Lab. His research interests include distributed robotics, mobile computing and programmable matter. He leads the Robotic Neurobiology group, which develops self-reconfiguring robots, systems of self-organizing robots, and mobile sensor networks.
+Ryan Curtis is the Atheltic Performance Data Manager at the San Antonio Spurs. Ryan has over 15 years of professional experience as a sports scientist, strength and conditioning coach and athletic trainer in military, collegiate and professional sports settings. Prior to his work with the Spurs, he was a Postdoctoral Research Fellow at the United States Army Research Institute of Environmental Medicine (USARIEM) and served in several positions at the Korey Stringer Institute (KSI), including the Assistant Director of Elite Athlete Health and Performance, Associate Director of Athlete Performance and Safety and Director of Athlete Performance and Safety. Prior to KSI, Ryan served special forces warfighters with the United States Marine Corps, developmental and professional athletes with the United States Tennis Association, and professional athletes on the ATP/WTA tennis tour. Dr. Curtis has authored over 15 peer-reviewed research publications and book chapters, presented feature lectures and research presentations at international conferences, and is an author of the book “Maximizing Performance and Safety in Elite Soccer Players”. His professional and research interests are in optimizing athlete/human health and performance through integration of technology and analytics.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate.
+Dr. Curtis received his bachelor’s degree in Athletic Training from Culver-Stockton College in 2006, Master’s degree in exercise science from Kansas State University in 2009 and Doctoral degree in exercise science from the University of Connecticut in 2019.
