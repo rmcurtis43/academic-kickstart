@@ -27,11 +27,8 @@ date_format = "Jan 2006"
   description = """
   Responsibilities include:
   
-* Manage and assist in the collection, analysis, and reporting of all data. Developing data visualization and working tools.
-* Ensuring athletic performance data consistency among the different data management platforms.
-* Performing advanced research and athletic performance projects (research and innovation) in the areas of technology, tracking systems, wearables, biometrics, strength profiling, human performance, recovery, injuries, nutrition, etc.
+* Manage and assist in the collection, analysis, and reporting of all data. Develop data visualization and working tools, ensure athletic performance data consistency among multiple data management platforms, gather intel, and perform advanced research and athletic performance projects (research and innovation) in the areas of technology, tracking systems, wearables, biometrics, strength profiling, human performance, recovery, injuries, nutrition, etc.
 * Assisting with logistics related to the athletic performance program (e.g., strength & conditioning sessions, warm-ups, supplements, equipment, food, etc.).
-* Athletic performance intel gathering
 
   """
 
@@ -109,7 +106,7 @@ staff in the areas of sports medicine and sports science.
   title = "Strength and Conditioning Coach/Athletic Trainer"
   company = "United States Marine Corps"
   company_url = ""
-  location = "Global"
+  location = "Pensacola, FL"
   date_start = "2009-08-01"
   date_end = "2010-05-01"
   description = """
