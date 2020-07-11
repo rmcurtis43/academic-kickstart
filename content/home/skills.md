@@ -20,19 +20,19 @@ subtitle = ""
 
 [[feature]]
 icon = "running"
-icon_pack = "fab"
+icon_pack = "fas"
 name = "Sports Science"
 description = ""
 
 [[feature]]
 icon = "dumbbell"
-icon_pack = "fab"
+icon_pack = "fas"
 name = "S&C"
 description = ""
 
 [[feature]]
 icon = "comment-medical"
-icon_pack = "fab"
+icon_pack = "fas"
 name = "Sports Medicine"
 description = ""
 
@@ -44,7 +44,7 @@ description = ""
 
 [[feature]]
 icon = "database"
-icon_pack = "fab"
+icon_pack = "fas"
 name = "SQL"
 description = ""  
   
