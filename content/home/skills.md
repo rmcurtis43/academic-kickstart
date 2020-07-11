@@ -14,16 +14,44 @@ subtitle = ""
 # 
 # For available icons, see: https://sourcethemes.com/academic/docs/page-builder/#icons
 
+
+  
+
+
+[[feature]]
+icon = "running"
+icon_pack = "fab"
+name = "Sports Science"
+description = ""
+
+[[feature]]
+icon = "dumbbell"
+icon_pack = "fab"
+name = "S&C"
+description = ""
+
+[[feature]]
+icon = "comment-medical"
+icon_pack = "fab"
+name = "Sports Medicine"
+description = ""
+
 [[feature]]
   icon = "r-project"
   icon_pack = "fab"
-  name = "R"
+  name = "R, Shiny, Markdown"
   description = ""
+
+[[feature]]
+icon = "database"
+icon_pack = "fab"
+name = "SQL"
+description = ""  
   
 [[feature]]
   icon = "chart-line"
   icon_pack = "fas"
-  name = "Analytics"
+  name = "Data Analytics/Visualization"
   description = ""  
   
 
