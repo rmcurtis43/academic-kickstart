@@ -52,6 +52,7 @@ workloads, and sleep on injury and psychological well-being.
 (HPL) and Mission Heat Lab.
 
 
+  """
 
 [[experience]]
   title = "Associate Director of Athlete Performance and Safety"
@@ -68,6 +69,7 @@ workloads, and sleep on injury and psychological well-being.
 Heat Labs.
 
 
+  """
 [[experience]]
   title = "Strength and Conditioning Coach/Athletic Trainer (Private)"
   company = "ATP/WTA Professional Tennis Tour"
@@ -83,6 +85,7 @@ ATP/WTA World Tour. Coordinated and implemented a variety of sport science, perf
 medicine services.
 
 
+  """
 [[experience]]
   title = "Strength and Conditioning Coach/Athletic Trainer"
   company = "United States Tennis Association"
@@ -101,6 +104,7 @@ evaluation of athletic injuries, athlete referral, treatment and rehabilitation,
 staff in the areas of sports medicine and sports science.
 
 
+  """
 [[experience]]
   title = "Strength and Conditioning Coach/Athletic Trainer"
   company = "United States Marine Corps"
@@ -117,4 +121,5 @@ Station-Pensacola.
 * Designed and implemented tactical strength, conditioning, and injury prevention programs.
 
 
+  """
 +++
