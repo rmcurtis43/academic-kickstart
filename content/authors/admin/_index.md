@@ -49,12 +49,17 @@ social:
 - icon: twitter
   icon_pack: fab
   link: https://twitter.com/_RyanCurtis
-- icon: google-scholar
-  icon_pack: ai
-  link: 
-- icon: github
+- icon: researchgate
   icon_pack: fab
-  link: 
+  link: https://www.researchgate.net/profile/Ryan_Curtis5
+
+
+# - icon: google-scholar
+ # icon_pack: ai
+ # link: 
+# - icon: github
+ # icon_pack: fab
+ # link: 
 # Link to a PDF of your resume/CV from the About widget.
 # To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.
 # - icon: cv
