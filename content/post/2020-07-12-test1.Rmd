@@ -1,0 +1,14 @@
+---
+title: "test1"
+author: "Ryan Curtis"
+date: '2020-07-12'
+slug: test1
+tags: []
+categories: []
+---
+
+```{r}
+library(shiny)
+tags$text("My First Blog Post")
+```
+
