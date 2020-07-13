@@ -1,0 +1,24 @@
+---
+title: "test1"
+author: "Ryan Curtis"
+date: '2020-07-12'
+slug: test1
+tags: []
+categories: []
+---
+
+
+```r
+library(shiny)
+```
+
+```
+## Warning: package 'shiny' was built under R version 3.6.3
+```
+
+```r
+tags$text("My First Blog Post")
+```
+
+<!--html_preserve--><text>My First Blog Post</text><!--/html_preserve-->
+
