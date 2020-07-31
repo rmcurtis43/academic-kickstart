@@ -1,5 +1,5 @@
 ---
-title: Seasonal Accumulated Workloads in Collegiate Men's Soccer: A Comparison of Starters and Reserves"
+title: "Seasonal Accumulated Workloads in Collegiate Men's Soccer: A Comparison of Starters and Reserves"
 authors: 
 - Curtis, RM, Huggins, RA, Benjamin, CL, Sekiguchi, Y, Arent, S, Armwald, B, Pullara, JM, West, CA, and Casa, DJ
 date: "2019-08-29T00:00:00Z"
