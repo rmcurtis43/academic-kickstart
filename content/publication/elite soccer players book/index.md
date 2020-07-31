@@ -1,6 +1,5 @@
 ---
-title: "Elite Soccer Players"
-subtitle: "Maximizing Performance and Safety"
+title: "Elite Soccer Players: Maximizing Performance and Safety"
 authors: 
 - Curtis RM, Benjamin CL, Huggins RA, Casa DJ
 date: "2018-10-01T00:00:00Z"
