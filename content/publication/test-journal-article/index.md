@@ -2,8 +2,9 @@
 title: "MATCH DEMANDS OF NATIONAL COLLEGIATE
 ATHLETIC ASSOCIATION DIVISION I MEN’S SOCCER"
 
-authors: "Curtis, RM, Huggins, RA, Looney, DP, West, CA, Fortunati, A, Fontaine, GJ, and Casa, DJ""
-date: "2018-10-01"
+authors: 
+- Curtis, RM, Huggins, RA, Looney, DP, West, CA, Fortunati, A, Fontaine, GJ, and Casa, DJ
+date: "2018-10-01T00:00:00Z"
 doi: "10.1519/JSC.0000000000002719"
 
 # Schedule page publish date (NOT publication's date).
