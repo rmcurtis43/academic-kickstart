@@ -18,7 +18,7 @@ organizations:
   url: "https://www.nba.com/spurs/"
 
 # Short bio (displayed in user profile at end of posts)
-bio: Sports scientist, strength and conditioning coach, athletic trainer, researcher, author. Interested in all things related to optimizing performance and reducing injury in sport.  
+bio: Sports scientist/analyst, strength and conditioning coach, athletic trainer, researcher, author. Interested in all things related to optimizing performance and mitigating injury risk in sport.  
 
 interests:
 - Sports Science
@@ -49,6 +49,9 @@ social:
 - icon: twitter
   icon_pack: fab
   link: https://twitter.com/_RyanCurtis
+- icon: linkedin
+  icon_pack: fab
+  link: https://www.linkedin.com/in/ryan-curtis-phd-atc-cscs-420aa989/
 - icon: researchgate
   icon_pack: fab
   link: https://www.researchgate.net/profile/Ryan_Curtis5
@@ -76,4 +79,4 @@ user_groups:
 - Visitors
 ---
 
-Ryan Curtis is currently the Atheltic Performance Data Manager at the San Antonio Spurs (NBA). He has over 15 years of professional experience as a sports scientist, strength and conditioning coach and athletic trainer in military, collegiate and professional sports settings. Prior to his work with the Spurs, Ryan was the Director of Athlete Performance and Safety at the Korey Stringer Institute (KSI) at the University of Connecticut. Prior to KSI, he served special forces warfighters with the United States Marine Corps, developmental and professional athletes with the United States Tennis Association, and professional athletes on the ATP/WTA tennis tour. Dr. Curtis has authored over 15 peer-reviewed research publications and book chapters, presented feature lectures and research presentations at international conferences and is an author of the book “Maximizing Performance and Safety in Elite Soccer Players”. His professional and research interests are in optimizing athlete/human health and performance through integration of technology and analytics. Ryan is experienced with several data management/visualization and web development tools: R, Shiny, SQL, HTML, CSS, Tableau, Power BI
+Ryan Curtis is currently a Sports and Data Scientist with a professional basketball team in the NBA. He has over 15 years of professional experience in multiple domains (sports science/analysis, S&C, Sports Medicine) and across multiple settings (professional sport, collegiate sport, military special forces, academia). Prior to his work in the NBA, Ryan was the Director of Athlete Performance and Safety at the Korey Stringer Institute (KSI) at the University of Connecticut. He has also served special forces warfighters with the United States Marine Corps, developmental and professional athletes with the United States Tennis Association, and professional athletes on the ATP/WTA tennis tour. Dr. Curtis has authored over 15 peer-reviewed research publications and book chapters, presented feature lectures and research presentations at international conferences and is an author of the book “Maximizing Performance and Safety in Elite Soccer Players”. His professional and research interests are in optimizing athlete/human health and performance through integration of technology and analytics. Ryan is experienced with several data management/visualization and web development tools: R, Shiny, SQL, HTML, CSS, Tableau, Power BI.
