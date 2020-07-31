@@ -29,9 +29,9 @@ tags:
 - Source Themes
 featured: false
 
-# links:
-#- name: "Read"
-url: https://pubmed.ncbi.nlm.nih.gov/29979277/
+links:
+- name: Custom Link
+  url: https://pubmed.ncbi.nlm.nih.gov/29979277/
 url_pdf: 
 url_code: ''
 url_dataset: ''
