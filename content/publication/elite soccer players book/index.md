@@ -42,6 +42,7 @@ url_video: ''
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder.
 image:
+  placement: 2
   caption: 'Image credit: [**Amazon**](https://www.amazon.com/Elite-Soccer-Players-Ryan-Curtis/dp/113861081X)'
   focal_point: "TopRight"
   preview_only: false

@@ -61,8 +61,8 @@ subtitle = ""
   
 [advanced]
  # Custom CSS. 
- css_style = "height: auto;max-width: 500px;margin-left: auto;margin-right: auto;display: block;"
+ css_style = ""
  
  # CSS class.
- css_class = ".img-thumbnail"
+ css_class = ""
 +++
