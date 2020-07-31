@@ -2,8 +2,8 @@
 title: "Elite Soccer Players: Maximizing Performance and Safety"
 authors: 
 - Curtis RM, Benjamin CL, Huggins RA, Casa DJ
-date: "2018-10-01T00:00:00Z"
-doi: "10.4324/9780429465536"
+date: "2020-01-01T00:00:00Z"
+doi: ""
 
 # Schedule page publish date (NOT publication's date).
 publishDate: "2020-01-01T00:00:00Z"
@@ -30,6 +30,8 @@ featured: true
 links:
 - name: Amazon
   url: https://www.amazon.com/Elite-Soccer-Players-Ryan-Curtis/dp/113861081X
+- name: Routledge
+  url: https://www.routledge.com/Elite-Soccer-Players-Maximizing-Performance-and-Safety/Curtis-Benjamin-Huggins-Casa/p/book/9781138610811
 url_pdf: 
 url_code: ''
 url_dataset: ''
