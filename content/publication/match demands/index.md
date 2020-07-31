@@ -1,7 +1,5 @@
 ---
-title: "MATCH DEMANDS OF NATIONAL COLLEGIATE
-ATHLETIC ASSOCIATION DIVISION I MEN’S SOCCER"
-
+title: "Match Demands of National Collegiate Athletic Association Division I Men's Soccer"
 authors: 
 - Curtis, RM, Huggins, RA, Looney, DP, West, CA, Fortunati, A, Fontaine, GJ, and Casa, DJ
 date: "2018-10-01T00:00:00Z"
