@@ -30,7 +30,7 @@ tags:
 featured: false
 
 # links:
-- name: "Read"
+#- name: "Read"
 url: "https://pubmed.ncbi.nlm.nih.gov/29979277/"
 url_pdf: 
 url_code: ''
