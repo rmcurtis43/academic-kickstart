@@ -4,7 +4,7 @@ subtitle: "Maximizing Performance and Safety"
 authors: 
 - Curtis RM, Benjamin CL, Huggins RA, Casa DJ
 date: "2018-10-01T00:00:00Z"
-doi: "10.1519/JSC.0000000000002719"
+doi: "10.4324/9780429465536"
 
 # Schedule page publish date (NOT publication's date).
 publishDate: "2020-01-01T00:00:00Z"
