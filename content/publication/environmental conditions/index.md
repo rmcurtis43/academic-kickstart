@@ -1,9 +1,9 @@
 ---
-title: "Contextual Factors Influencing External and Internal Training Loads in Collegiate Men's Soccer"
+title: "Environmental Conditions, Preseason Fitness Levels, and Game Workload: Analysis of a Female NCAA DI National Championship Soccer Season"
 authors: 
-- Curtis, RM, Huggins, RA, Benjamin, CL, Sekiguchi, Y, Adams, WM, Arent, SM, Jain, R, Miller, SJ, Walker, AJ, and Casa, DJ
-date: "2018-10-01T00:00:00Z"
-doi: "10.1519/JSC.0000000000003361"
+- Benjamin, CL, Hosokawa, Y, Curtis, RM, Schaefer, DA, Bergin, RT, Abegg, MR, and Casa, DJ
+date: "2020-08-29T00:00:00Z"
+doi: "10.1519/JSC.0000000000003535"
 
 # Schedule page publish date (NOT publication's date).
 publishDate: "2018-10-01T00:00:00Z"
@@ -18,7 +18,7 @@ publication_types: ["2"]
 publication: "*Journal of Strength and Conditioning Research*"
 publication_short: ""
 
-abstract: "This study investigated factors influencing training loads (TL) in collegiate men's soccer. Total distance, high-speed running distance (>14.4 km·h), high-intensity heart-rate zone duration (HI HRZ, >70% heart rate relative to maximum), and session rating of perceived exertion were assessed daily from 107 male soccer players competing for 5 National Collegiate Athletics Association Division I teams. Differences between athlete role (starter and reserve), position (defender, midfielder, and forward), season phase (preseason, in-season, and postseason), days relative to match (MD-1 to MD-5+), days between matches (<4, 4-5, >5 days), previous match outcome (win, loss, and draw), and upcoming opponent relative ranking (weaker, trivial, and stronger) were examined. Mean differences (MD) and effect sizes (ESs) with 90% confidence intervals were reported. There were trivial and insignificant differences by player role, position, or upcoming opponent strength, and small-moderate increases in preseason TL compared with in-season (ES [range] = 0.4-0.9). TLs were lower for MD-1 and higher for MD-5+ (ES [range] = 0.4-1.3) when compared with MD-2-4. External loads (ES = -0.40 ± 0.20) were less after wins compared with losses. TLs are increased in the preseason, when training sessions occur greater than 5 days from a match and after losses. Contextualizing factors affecting TLs has implications for developing workload prescription and recovery strategies."
+abstract: "The purpose of this study was to determine the independent and combined moderating effect of aerobic fitness and environmental conditions on physical workloads during collegiate female soccer matches. Nineteen National Collegiate Athletic Association female soccer athletes were included in this study (mean ± SD: age, 20.6 ± 1.4 years; height, 169 ± 6.1 cm; body mass 64.7 ± 5.3 kg). Maximal oxygen consumption (V[Combining Dot Above]O2max) was estimated from the yo-yo intermittent recovery test before preseason training and wet-bulb globe temperature (WBGT) was recorded onsite for home matches and at the nearest weather station for away matches. Relative distance (TD), relative high-speed running distance (%HSD), and relative high metabolic load (%HML) performance were collected during each match using a global positioning system unit (Viper Pod; STATSports, Chicago, IL). Statistically significant differences were observed in TD between LOW WBGT and MOD WBGT (mean difference [MD] = 7.08 m·min; effect size [ES] = 0.54; p < 0.001), in %HSD between LOW WBGT and MOD WBGT (MD = 1.97%; ES = 0.64; p = 0.01) and between LOW WBGT and HIGH WBGT (MD = 2.71%; ES = 1.01; p < 0.001), and in %HML between LOW WBGT and MOD WBGT (MD = 1.24%; ES = 0.56; p < 0.001) and between LOW WBGT and HIGH WBGT (MD = 1.55%; ES = 0.78; p = 0.01). There was a significant interaction between WBGT and V[Combining Dot Above]O2max for %HSD (p = 0.03). These findings demonstrate that physical performance metrics were affected by increased WBGT. In addition, aerobic fitness seemed to moderate the effect of increasing WBGT on %HSD, meaning maximizing aerobic capacity is important for optimizing running performance in the heat. Coaches and sports medicine staff could alter training time and session length based on environmental conditions as well as potentially use aggressive cooling strategies to mitigate the imposed heat stress and decrements in physical performance."
 
 # Summary. An optional shortened abstract.
 summary: 
@@ -29,7 +29,7 @@ featured: false
 
 links:
 - name: Read
-  url: https://pubmed.ncbi.nlm.nih.gov/31524781/
+  url: https://pubmed.ncbi.nlm.nih.gov/31996612/
 url_pdf: 
 url_code: ''
 url_dataset: ''
