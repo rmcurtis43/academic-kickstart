@@ -1,16 +1,13 @@
 ---
-title: "An example journal article"
-authors:
-- admin
-- Robert Ford
-author_notes:
-- "Equal contribution"
-- "Equal contribution"
-date: "2015-09-01T00:00:00Z"
-doi: ""
+title: "MATCH DEMANDS OF NATIONAL COLLEGIATE
+ATHLETIC ASSOCIATION DIVISION I MEN’S SOCCER"
+
+authors: [Curtis, RM, Huggins, RA, Looney, DP, West, CA, Fortunati, A, Fontaine, GJ, and Casa, DJ]
+date: {{2018-10-01}}
+doi: "10.1519/JSC.0000000000002719"
 
 # Schedule page publish date (NOT publication's date).
-publishDate: "2017-01-01T00:00:00Z"
+publishDate: "2018-10-01T00:00:00Z"
 
 # Publication type.
 # Legend: 0 = Uncategorized; 1 = Conference paper; 2 = Journal article;
@@ -19,13 +16,13 @@ publishDate: "2017-01-01T00:00:00Z"
 publication_types: ["2"]
 
 # Publication name and optional abbreviated publication name.
-publication: "*Journal of Source Themes, 1*(1)"
-publication_short: ""
+publication: "J Strength Cond Res 32(10): 2907-2917, 2018"
+publication_short: "J Strength Cond Res"
 
-abstract: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum. Sed ac faucibus dolor, scelerisque sollicitudin nisi. Cras purus urna, suscipit quis sapien eu, pulvinar tempor diam. Quisque risus orci, mollis id ante sit amet, gravida egestas nisl. Sed ac tempus magna. Proin in dui enim. Donec condimentum, sem id dapibus fringilla, tellus enim condimentum arcu, nec volutpat est felis vel metus. Vestibulum sit amet erat at nulla eleifend gravida.
+abstract: Curtis, RM, Huggins, RA, Looney, DP, West, CA, Fortunati, A, Fontaine, GJ, and Casa, DJ. Match demands of National Collegiate Athletic Association Division I men's soccer. J Strength Cond Res 32(10): 2907-2917, 2018-This study aimed to profile positional movement characteristics of National Collegiate Athletic Association (NCAA) Division I male soccer players. Eighteen Division I male soccer players were monitored using global positioning systems, inertial movement, and heart rate (HR) technology during 24 matches over a full competitive season (N = 235 observations). Positional groups were classified as either a forward (F), center midfielder (CM), wide midfielder (WM), or defender (D). Movement was profiled by locomotor (walking [0-7.19 km·h], jogging [7.20-14.39 km·h], running [14.40-21.59 km·h], and sprinting [>21.6 km·h]), and acceleration/deceleration characteristics (low intensity [0-1.99 m·s], moderate intensity [2-3.99 m·s], and high intensity [>4 m·s]). Players averaged distances of 9,367 ± 2,149 m per match at speeds of 91 ± 20 m·min and physiological intensities of 78 ± 8 %HRmax. Center midfielder demonstrated the highest average speeds (97 ± 20 m·min) and covered the most distance (9,941 ± 2,140 m). Wide midfielder accumulated the most sprint distance (391 ± 145 m) and high-intensity accelerations (129 ± 30 n)/decelerations (96 ± 24 n). Several practically meaningful differences exist between positions for internal and external load metrics. Match loads seen in NCAA Division I soccer vary from reports of professional soccer; however, the effects of match regulation, structure, and congestion, which are unique to NCAA soccer, require further investigation. Physical and physiological load monitoring of NCAA soccer may aid coaches and practitioners in the periodization of training programs leading up to and during a competitive soccer season. These data speak to the necessity for examining both internal and external loads by position.
 
 # Summary. An optional shortened abstract.
-summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum.
+#summary: 
 
 tags:
 - Source Themes
