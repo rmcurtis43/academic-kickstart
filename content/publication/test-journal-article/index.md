@@ -17,7 +17,7 @@ publishDate: "2018-10-01T00:00:00Z"
 publication_types: ["2"]
 
 # Publication name and optional abbreviated publication name.
-publication: "*Journal of Strength and Conditioning Reseearch*"
+publication: In *Journal of Strength and Conditioning Research*
 publication_short: ""
 
 abstract: This study aimed to profile positional movement characteristics of National Collegiate Athletic Association (NCAA) Division I male soccer players. Eighteen Division I male soccer players were monitored using global positioning systems, inertial movement, and heart rate (HR) technology during 24 matches over a full competitive season (N = 235 observations). Positional groups were classified as either a forward (F), center midfielder (CM), wide midfielder (WM), or defender (D). Movement was profiled by locomotor (walking [0-7.19 km·h], jogging [7.20-14.39 km·h], running [14.40-21.59 km·h], and sprinting [>21.6 km·h]), and acceleration/deceleration characteristics (low intensity [0-1.99 m·s], moderate intensity [2-3.99 m·s], and high intensity [>4 m·s]). Players averaged distances of 9,367 ± 2,149 m per match at speeds of 91 ± 20 m·min and physiological intensities of 78 ± 8 %HRmax. Center midfielder demonstrated the highest average speeds (97 ± 20 m·min) and covered the most distance (9,941 ± 2,140 m). Wide midfielder accumulated the most sprint distance (391 ± 145 m) and high-intensity accelerations (129 ± 30 n)/decelerations (96 ± 24 n). Several practically meaningful differences exist between positions for internal and external load metrics. Match loads seen in NCAA Division I soccer vary from reports of professional soccer; however, the effects of match regulation, structure, and congestion, which are unique to NCAA soccer, require further investigation. Physical and physiological load monitoring of NCAA soccer may aid coaches and practitioners in the periodization of training programs leading up to and during a competitive soccer season. These data speak to the necessity for examining both internal and external loads by position.
@@ -30,7 +30,7 @@ tags:
 featured: false
 
 links:
-- name: Custom Link
+- name: Read
   url: https://pubmed.ncbi.nlm.nih.gov/29979277/
 url_pdf: 
 url_code: ''
@@ -63,12 +63,3 @@ projects: []
 slides: example
 ---
 
-{{% alert note %}}
-Click the *Cite* button above to demo the feature to enable visitors to import publication metadata into their reference management software.
-{{% /alert %}}
-
-{{% alert note %}}
-Click the *Slides* button above to demo Academic's Markdown slides feature.
-{{% /alert %}}
-
-Supplementary notes can be added here, including [code and math](https://sourcethemes.com/academic/docs/writing-markdown-latex/).
