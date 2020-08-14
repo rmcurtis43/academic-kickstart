@@ -31,7 +31,7 @@ klippy::klippy()
 ```
 
 # Load Data
-```{r, results='hide', warning=FALSE, message=FALSE}
+```{r, results='hide', warning=FALSE, message=FALSE, echo=FALSE}
 library(tidyverse)
 #load data
 data <- read.csv("data.csv")
