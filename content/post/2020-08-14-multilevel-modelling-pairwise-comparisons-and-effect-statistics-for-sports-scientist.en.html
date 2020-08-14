@@ -3078,15 +3078,10 @@ summary {
 </div>
 
 
-<div id="why-sports-scientist-should-be-familiar-with-mixed-effects-multi-level-modelling-and-effect-statistics" class="section level1">
-<h1>Why sports scientist should be familiar with mixed effects (multi-level) modelling and effect statistics…</h1>
-<p>Skill in analyzing longitudinal data is particularly important for assessing phenomena that fluctuate over time. There are several important considerations when conducting longitudinal analysis including; accounting for the dependencies created by repeated measures, dealing with missing or unbalanced data (common occurrence in athlete monitoring practices), differentiating between-athlete from within-athlete effects, accounting for time-varying (e.g., workload, perceived fatigue) and time-invariant factors (e.g., sex, role, position) and establishing the influence of time.</p>
-<p>Multi-level models are quite useful in assessing longitudinal outcomes because of their ability to incorporate multiple factors into the model, include time-variant and time-invariant factors, account for between and within-athlete variability, handle missing and unbalanced data and account for repeated measures over time <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6169745/">(Windt et al. 2018)</a>.</p>
 <script>
   addClassKlippyTo("pre.r, pre.markdown");
   addKlippy('left', 'top', 'auto', '1', 'Copy code', 'Copied!');
 </script>
-</div>
 <div id="load-data" class="section level1">
 <h1>Load Data</h1>
 </div>
@@ -3095,20 +3090,19 @@ summary {
 <p>It’s always good to take a look at the structure of the data. Main thing is we want to make sure the data is in long format and each column is formatted appropriately (numeric, date, factor, etc.).</p>
 <pre class="r"><code>#structure of dataframe
 str(data)</code></pre>
-<pre><code>## &#39;data.frame&#39;:    2145 obs. of  4 variables:
+<pre><code>## &#39;data.frame&#39;:    2145 obs. of  3 variables:
 ##  $ Athlete : chr  &quot;Athlete1&quot; &quot;Athlete1&quot; &quot;Athlete1&quot; &quot;Athlete1&quot; ...
-##  $ Date    : Date, format: &quot;2017-08-14&quot; &quot;2017-08-17&quot; ...
 ##  $ Season  : Factor w/ 3 levels &quot;Preseason&quot;,&quot;Inseason&quot;,..: 1 1 1 1 1 1 2 2 2 2 ...
 ##  $ Distance: num  5431 5142 4530 6289 7132 ...</code></pre>
 <pre class="r"><code>#view dataframe
 head(data)</code></pre>
-<pre><code>##    Athlete       Date    Season Distance
-## 1 Athlete1 2017-08-14 Preseason     5431
-## 2 Athlete1 2017-08-17 Preseason     5142
-## 3 Athlete1 2017-08-21 Preseason     4530
-## 4 Athlete1 2017-08-22 Preseason     6289
-## 5 Athlete1 2017-08-23 Preseason     7132
-## 6 Athlete1 2017-08-24 Preseason     3089</code></pre>
+<pre><code>##    Athlete    Season Distance
+## 1 Athlete1 Preseason     5431
+## 2 Athlete1 Preseason     5142
+## 3 Athlete1 Preseason     4530
+## 4 Athlete1 Preseason     6289
+## 5 Athlete1 Preseason     7132
+## 6 Athlete1 Preseason     3089</code></pre>
 </div>
 <div id="fit-mixed-effects-model-with-lme4" class="section level1">
 <h1>Fit Mixed Effects Model with lme4</h1>
@@ -3494,8 +3488,8 @@ effect_data &lt;- effect_data_cohen %&gt;%
 <pre class="r"><code>#view effect size dataframe
 library(DT)
 DT::datatable(effect_data, rownames = FALSE, options = list(dom= &quot;t&quot;))</code></pre>
-<div id="htmlwidget-5245a11fe81dbe452ee9" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5245a11fe81dbe452ee9">{"x":{"filter":"none","data":[["Inseason - Preseason","Postseason - Preseason","Postseason - Inseason"],[-0.51,-0.37,0.1],[-0.28,-0.36,-0.08],[-0.26,-0.33,-0.07]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Season<\/th>\n      <th>Effect Size (Cohen)<\/th>\n      <th>Effect Size (Residuals)<\/th>\n      <th>Effect Size (All Variance)<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","columnDefs":[{"className":"dt-right","targets":[1,2,3]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-7e798ac0e193bdd88300" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7e798ac0e193bdd88300">{"x":{"filter":"none","data":[["Inseason - Preseason","Postseason - Preseason","Postseason - Inseason"],[-0.51,-0.37,0.1],[-0.28,-0.36,-0.08],[-0.26,-0.33,-0.07]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Season<\/th>\n      <th>Effect Size (Cohen)<\/th>\n      <th>Effect Size (Residuals)<\/th>\n      <th>Effect Size (All Variance)<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","columnDefs":[{"className":"dt-right","targets":[1,2,3]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="add-effect-size-interpretations" class="section level3">
 <h3>Add Effect Size Interpretations</h3>
@@ -3508,8 +3502,8 @@ DT::datatable(effect_data, rownames = FALSE, options = list(dom= &quot;t&quot;))
 
 
 DT::datatable(effect_interpretation, rownames = FALSE, options = list(dom= &quot;t&quot;))</code></pre>
-<div id="htmlwidget-bb73d06b5194816949e8" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-bb73d06b5194816949e8">{"x":{"filter":"none","data":[["Inseason - Preseason","Postseason - Preseason","Postseason - Inseason"],[-0.51,-0.37,0.1],["Small","Small","Trivial"],["Large","Medium","Small"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Season<\/th>\n      <th>Effect Size (Cohen)<\/th>\n      <th>Hopkins Interpretation<\/th>\n      <th>Cohen's Interpretation<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","columnDefs":[{"className":"dt-right","targets":1}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-561150d8f20ff5ab7e9c" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-561150d8f20ff5ab7e9c">{"x":{"filter":"none","data":[["Inseason - Preseason","Postseason - Preseason","Postseason - Inseason"],[-0.51,-0.37,0.1],["Small","Small","Trivial"],["Large","Medium","Small"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Season<\/th>\n      <th>Effect Size (Cohen)<\/th>\n      <th>Hopkins Interpretation<\/th>\n      <th>Cohen's Interpretation<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","columnDefs":[{"className":"dt-right","targets":1}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <p>As noted earlier and worth mentioning again, there are a number of ways to calculate standardized effect sizes and there really is not one “right” way. The important thing is to detail which method you are using and make sure to label it appropriately. For instance, using residual SD and the square root of the sum of variance components from a mixed model for standardization are not traditional Cohen’s d statistics, so they should be referred to as standardized effect sizes.</p>
 </div>
 </div>
