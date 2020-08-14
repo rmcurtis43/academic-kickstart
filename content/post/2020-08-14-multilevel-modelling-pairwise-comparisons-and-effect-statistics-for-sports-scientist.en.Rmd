@@ -19,12 +19,6 @@ projects: []
 ---
 
 
-# Why sports scientist should be familiar with mixed effects (multi-level) modelling and effect statistics...
-
-Skill in analyzing longitudinal data is particularly important for assessing phenomena that fluctuate over time. There are several important considerations when conducting longitudinal analysis including; accounting for the dependencies created by repeated measures, dealing with missing or unbalanced data (common occurrence in athlete monitoring practices), differentiating between-athlete from within-athlete effects, accounting for time-varying (e.g., workload, perceived fatigue) and time-invariant factors (e.g., sex, role, position) and establishing the influence of time.
-
-Multi-level models are quite useful in assessing longitudinal outcomes because of their ability to incorporate multiple factors into the model, include time-variant and time-invariant factors, account for between and within-athlete variability, handle missing and unbalanced data and account for repeated measures over time [(Windt et al. 2018)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6169745/).
-
 
 ```{r klippy, echo=FALSE, include=TRUE, warning=FALSE, message=FALSE}
 klippy::klippy()
@@ -34,27 +28,9 @@ klippy::klippy()
 ```{r, results='hide', warning=FALSE, message=FALSE, echo=FALSE}
 library(tidyverse)
 #load data
-data <- read.csv("data.csv")
+data <- readRDS(file = "data.rds")
 ```
 
-```{r, results='hide', echo=FALSE, warning=FALSE, message=FALSE}
-library(remotes)
-
-data <- data %>% 
-  mutate(Date = as.Date(Date, '%m/%d/%Y')) %>%
-  left_join(data %>% 
-              group_by(Name) %>%
-              summarise(Count = n()), by = 'Name') %>%
-  filter(Count >30) %>%
-  mutate(Season = SeasonType) %>%
-  mutate(PlayerID = group_indices(., Name)) %>%
-  mutate(Athlete = paste0("Athlete", PlayerID)) %>% 
-  dplyr::select(Athlete, Date, Season, Distance) %>%
-  mutate(Season = as.factor(Season)) %>%
-  mutate(Season = fct_relevel(Season, c("Preseason", "Inseason", "Postseason"))) %>%
-  arrange(Athlete, Date)
-  
-```
 
 
 # Identify structure and view dataframe
