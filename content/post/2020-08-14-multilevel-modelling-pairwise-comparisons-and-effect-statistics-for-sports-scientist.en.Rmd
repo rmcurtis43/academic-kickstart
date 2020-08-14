@@ -18,6 +18,11 @@ image:
 projects: []
 ---
 
+# Why sports scientist should be familiar with mixed effects (multi-level) modelling and effect statistics...
+
+Skill in analyzing longitudinal data is particularly important for assessing phenomena that fluctuate over time. There are several important considerations when conducting longitudinal analysis including; accounting for the dependencies created by repeated measures, dealing with missing or unbalanced data (common occurrence in athlete monitoring practices), differentiating between-athlete from within-athlete effects, accounting for time-varying (e.g., workload, perceived fatigue) and time-invariant factors (e.g., sex, role, position) and establishing the influence of time.
+
+Multi-level models are quite useful in assessing longitudinal outcomes because of their ability to incorporate multiple factors into the model, include time-variant and time-invariant factors, account for between and within-athlete variability, handle missing and unbalanced data and account for repeated measures over time [(Windt et al. 2018)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6169745/).
 
 
 ```{r klippy, echo=FALSE, include=TRUE, warning=FALSE, message=FALSE}
