@@ -1,9 +1,8 @@
 ---
-title: Multilevel Modelling, Pairwise Comparisons and Effect Statistics for Sports
-  Scientist
+title: Multi-level Modeling, Pairwise Comparisons and Effect Statistics in R
 author: Ryan Curtis, PhD
 date: '2020-08-14'
-slug: multilevel-modelling-pairwise-comparisons-and-effect-statistics-for-sports-scientist
+slug: multilevel-modeling-pairwise-comparisons-and-effect-statistics-for-sports-scientist
 categories: []
 tags: []
 subtitle: ''
@@ -22,31 +21,25 @@ projects: []
 <link href="/rmarkdown-libs/primer-tooltips/build.css" rel="stylesheet" />
 <link href="/rmarkdown-libs/klippy/css/klippy.min.css" rel="stylesheet" />
 <script src="/rmarkdown-libs/klippy/js/klippy.min.js"></script>
-<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
-<script src="/rmarkdown-libs/jquery/jquery.min.js"></script>
-<link href="/rmarkdown-libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
-<script src="/rmarkdown-libs/datatables-binding/datatables.js"></script>
-<link href="/rmarkdown-libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="/rmarkdown-libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="/rmarkdown-libs/dt-core/js/jquery.dataTables.min.js"></script>
-<link href="/rmarkdown-libs/crosstalk/css/crosstalk.css" rel="stylesheet" />
-<script src="/rmarkdown-libs/crosstalk/js/crosstalk.min.js"></script>
 
 
-<div id="why-sports-scientist-should-be-familiar-with-mixed-effects-multi-level-modelling-and-effect-statistics" class="section level1">
-<h1>Why sports scientist should be familiar with mixed effects (multi-level) modelling and effect statistics…</h1>
-<p>Skill in analyzing longitudinal data is particularly important for assessing phenomena that fluctuate over time. There are several important considerations when conducting longitudinal analysis including; accounting for the dependencies created by repeated measures, dealing with missing or unbalanced data (common occurrence in athlete monitoring practices), differentiating between-athlete from within-athlete effects, accounting for time-varying (e.g., workload, perceived fatigue) and time-invariant factors (e.g., sex, role, position) and establishing the influence of time.</p>
-<p>Multi-level models are quite useful in assessing longitudinal outcomes because of their ability to incorporate multiple factors into the model, include time-variant and time-invariant factors, account for between and within-athlete variability, handle missing and unbalanced data and account for repeated measures over time <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6169745/">(Windt et al. 2018)</a>.</p>
+<div id="why-sports-scientist-should-be-familiar-with-mixed-effects-multi-level-modeling-and-effect-statistics" class="section level3">
+<h3>Why sports scientist should be familiar with mixed effects (multi-level) modeling and effect statistics…</h3>
+<p>Skill in analyzing longitudinal data is particularly important for assessing phenomena that fluctuate over time. There are several important considerations when conducting longitudinal analysis including; accounting for the dependencies created by repeated measures, dealing with missing or unbalanced data (common occurrence in athlete monitoring practices), differentiating between-athlete from within-athlete variability, accounting for time-varying (e.g., workload, perceived fatigue) and time-invariant factors (e.g., sex, role, position) and establishing the influence of time <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6169745/">(Windt et al. 2018)</a>. Multi-level models are very useful to a sports scientist because they can handle aforementioned complexities that are a natural part of player tracking/monitoring.</p>
+<p>Measuring the magnitude or strength of the change of a health or performance outcome can aid in the evaluation of the positive or negative consequences of an intervention or can be used to compare groups (e.g., male vs female, preseason vs. inseason, turf vs. grass surface). In order to assess change, difference betweeen mean group measures must be standardized. When comparing means, a common approach is using Cohen’s d, which is very similar to a standard difference score or z-score. Classic Cohen’s d requires a pooled standard deviation (SD) in the denominator and the mean difference in the numerator, while standard difference scores and z-scores typically using either between-athlete SD or control group SD (see below).</p>
+<p>Cohen’s d Effect Size = (mean 1 – mean 2) ÷ between-athlete pooled SD</p>
+<p>Standard Difference Score or Zscore = (mean 1 – mean 2) ÷ between-athlete SD</p>
+<p>As mentioned, mixed models are unique becuase they can account for a number of variances (between-athlete/within-athlete, variability associated with time). However, this does present some issues when calculating classic cohen’s d directly from the model results because Cohen’s d was developed for between-subjects research. With that in mind, the aim of this post is to set up a basic mixed model with player tracking (workload) data in R and explore the number of options one has to calculate effect statistics from the results.</p>
 <script>
   addClassKlippyTo("pre.r, pre.markdown");
   addKlippy('left', 'top', 'auto', '1', 'Copy code', 'Copied!');
 </script>
 </div>
-<div id="load-data" class="section level1">
-<h1>Load Data</h1>
-</div>
-<div id="identify-structure-and-view-dataframe" class="section level1">
-<h1>Identify structure and view dataframe</h1>
+<div id="load-data-identify-structure-and-view-dataframe" class="section level1">
+<h1>Load data, identify structure and view dataframe</h1>
+<pre class="r"><code>library(tidyverse)
+#load data
+data &lt;- readRDS(file = &quot;data.rds&quot;)</code></pre>
 <p>It’s always good to take a look at the structure of the data. Main thing is we want to make sure the data is in long format and each column is formatted appropriately (numeric, date, factor, etc.).</p>
 <pre class="r"><code>#structure of dataframe
 str(data)</code></pre>
@@ -66,7 +59,7 @@ head(data)</code></pre>
 </div>
 <div id="fit-mixed-effects-model-with-lme4" class="section level1">
 <h1>Fit Mixed Effects Model with lme4</h1>
-<p>With this model, we are doing a simple LMM, with Distance covered as our dependent variable, Season (preseason, inseason and postseason) as our independent variable (fixed effect) and we are clustering the data by athlete (random effect). Although one of the benefits of LMM is its abililtiy to incorporate multiple factors into a model (therefore controlling for various contextual factors), for demonstration purposes we’ll keep the model as a simple univariate example.</p>
+<p>With this model, we are doing a basic LMM, with Distance covered as our dependent variable, Season (preseason, inseason and postseason) as our independent variable (fixed effect) and we are clustering the data by athlete (random effect). Although one of the benefits of LMM is its abililtiy to incorporate multiple factors into a model (providing the ability to account for various contextual factors), for demonstration purposes we’ll keep the model as a simple univariate example.</p>
 <pre class="r"><code>library(lmerTest)
 
 #fit model
@@ -106,7 +99,7 @@ summary(fit)</code></pre>
 </div>
 <div id="a-more-detailed-summary" class="section level1">
 <h1>A More Detailed Summary…</h1>
-<p>I prefer to use the tab_model function in the sjPlot package by Daniel Lüdecke. You get a nice html table output that is publication worthy. There are several options to customize the table output, you can find that tutorial <a href="https://strengejacke.github.io/sjPlot/articles/tab_model_estimates.html">here</a>. In addition to the standard components you get with a traditional summary() output, tab_model() provides a few other components we need to interpet the model such as the ICC value and marginal/conditoinal R<sup>2</sup> values.</p>
+<p>I prefer to use the <mark>tab_model()</mark> function in the sjPlot package by Daniel Lüdecke. You get a nice html table output that is publication worthy. There are several options to customize the table output, you can find that tutorial <a href="https://strengejacke.github.io/sjPlot/articles/tab_model_estimates.html">here</a>. In addition to the standard components you get with a traditional <mark>summary()</mark> output, <mark>tab_model()</mark> provides a few other components we need to interpet the model such as the ICC value and marginal/conditoinal R<sup>2</sup> values.</p>
 <p>The higher the ICC value the more justified the use of LMM vs. a more traditional statistic (ANOVA in this instance). ICC’s can be interpeted as the proportion of variance explained by clustering. An ICC &gt; 0.1 is generally accepted as the minimal threshold for justifying the use of LMM, so in other words, at least 10% of the variance in Distance should be explained by clustering the observations by player.</p>
 <pre class="r"><code># detailed summary
 library(sjPlot)
@@ -232,7 +225,7 @@ Marginal R<sup>2</sup> / Conditional R<sup>2</sup>
 </div>
 <div id="visualize-data" class="section level1">
 <h1>Visualize Data</h1>
-<p>If you want to visualize the model (or any other mixed effects model [generalized, ordinal, etc.]), I would recommend using the ggeffects package (also by Daniel Lüdecke) combined with ggplot2 functions. You can find the ggeffects tutorial <a href="https://strengejacke.github.io/ggeffects/">here</a>. You can use the <strong>fit</strong> object with <strong>ggpredict()</strong> to create a data frame for plotting, pass a <strong>plot</strong> function, and then add <strong>ggplot2</strong> functions as needed to clean up the visualization. Here is a sample output from ggpredict().</p>
+<p>If you want to visualize the model (or any other mixed effects model [generalized, ordinal, etc.]), I would recommend using the ggeffects package (also by Daniel Lüdecke) combined with ggplot2 functions. You can find the ggeffects tutorial <a href="https://strengejacke.github.io/ggeffects/">here</a>. You can use the <strong>fit</strong> object with <mark>ggpredict()</mark> to create a data frame for plotting, pass a <mark>plot()</mark> function, and then add *<mark>ggplot2()</mark> functions as needed to clean up the visualization. Here is a sample output from <mark>ggpredict()</mark>.</p>
 <pre class="r"><code>library(ggeffects)
 library(ggplot2)
 
@@ -264,8 +257,7 @@ plot_data %&gt;%
 </div>
 <div id="fit-tukey-for-pairwise-comparisons" class="section level1">
 <h1>Fit Tukey for Pairwise Comparisons</h1>
-<p>Since the model summary indicates we have some significant differences in session distance by season phase, the next step is to compare the levels against each other to see where the differences lie. We can tell by the model summary() output that Inseason and Postseason are significantly different than Preseason (model intercept), but we want to run this model through a post hoc test to confirm where the differences are.</p>
-<p>As expected based on the model summary, both inseason and postseason session loads are less than the preseason. This makes sense. Preseason is used as a prepatory period and is accompanied by increased player loading.</p>
+<p>Since the model summary indicates we have some significant differences in session distance by season phase, the next step is to compare the levels against each other to see where the differences lie. We can tell by the model <mark>summary()</mark> output that Inseason and Postseason are significantly different than Preseason (model intercept), but we want to run this model through a post hoc test to confirm where the differences are.</p>
 <pre class="r"><code>library(multcomp)
 
 # pairwise comparisons
@@ -287,6 +279,7 @@ summary(fit_tukey)</code></pre>
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## (Adjusted p values reported -- single-step method)</code></pre>
+<p>As expected based on the model summary, both inseason and postseason session loads are less than the preseason. This makes sense. Preseason is used as a prepatory period and is accompanied by increased player loading.</p>
 <p>Another important thing to note here, the difference estimates from this Tukey are the same as the lmer model summary, so we can also use these as our mean differences for the effect size calculations.</p>
 </div>
 <div id="calculating-effect-sizes" class="section level1">
@@ -320,9 +313,8 @@ library(lsr)
 lsr::cohensD(preseason_data$Distance, inseason_data$Distance)</code></pre>
 <pre><code>## [1] 0.5073199</code></pre>
 <p>The <strong>effsize</strong> package which also give you 95%CI.</p>
-<pre class="r"><code>library(effsize)</code></pre>
-<pre><code>## Warning: package &#39;effsize&#39; was built under R version 3.6.3</code></pre>
-<pre class="r"><code>effsize::cohen.d(preseason_data$Distance, inseason_data$Distance)</code></pre>
+<pre class="r"><code>library(effsize)
+effsize::cohen.d(preseason_data$Distance, inseason_data$Distance)</code></pre>
 <pre><code>## 
 ## Cohen&#39;s d
 ## 
@@ -330,9 +322,48 @@ lsr::cohensD(preseason_data$Distance, inseason_data$Distance)</code></pre>
 ## 95 percent confidence interval:
 ##     lower     upper 
 ## 0.3846418 0.6299981</code></pre>
+<p>Given the options, let’s go ahead and use the <mark>cohen_d()</mark> function, create a dataframe and knit it into a table.</p>
+<pre class="r"><code>#gather cohen effect sizes
+inseason_preseason_cohen &lt;- cohens_d(inseason_data$Distance, preseason_data$Distance)
+postseason_preseason_cohen &lt;- cohens_d(postseason_data$Distance, preseason_data$Distance)
+postseason_inseason_cohen &lt;- cohens_d(postseason_data$Distance, inseason_data$Distance)
+
+
+#make cohen dataframe
+effect_data_cohen &lt;- data.frame(
+  &quot;Season&quot; = c(&quot;Inseason - Preseason&quot;, &quot;Postseason - Preseason&quot;, &quot;Postseason - Inseason&quot;),
+  &quot;Effect Size Cohen&quot; = c(inseason_preseason_cohen, postseason_preseason_cohen, postseason_inseason_cohen))%&gt;%
+  rename(`Effect Size (Cohen)` = Effect.Size.Cohen) %&gt;%
+  mutate(`Effect Size (Cohen)` = round(`Effect Size (Cohen)`, 2))
+  
+
+knitr::kable(effect_data_cohen)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Season</th>
+<th align="right">Effect Size (Cohen)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Inseason - Preseason</td>
+<td align="right">-0.51</td>
+</tr>
+<tr class="even">
+<td align="left">Postseason - Preseason</td>
+<td align="right">-0.37</td>
+</tr>
+<tr class="odd">
+<td align="left">Postseason - Inseason</td>
+<td align="right">0.10</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="option-2-standardized-effect-size-using-residual-standard-deviation" class="section level2">
 <h2>Option 2: Standardized Effect Size using Residual Standard Deviation</h2>
+<p>This option is somewhat popular because the residual standard deviation is often assumed equivalent to the between-subjects standard deviation. However, that’s not always the case and is highly dependent on the data. As we’ll see, this methods produces noticable different results from classic cohen’s d.</p>
 <div id="extract-mean-differences" class="section level3">
 <h3>Extract Mean Differences</h3>
 <p>For the numerator we need mean differences, which we can grab from the Tukey summary (or you could gather them from the lmer model summary, results are the same…your choice).</p>
@@ -340,45 +371,80 @@ lsr::cohensD(preseason_data$Distance, inseason_data$Distance)</code></pre>
 res &lt;- summary(fit_tukey)
 
 #extract first tukey comparison and make into an object
-res$test[-(1:2)]$coefficients[1]</code></pre>
-<pre><code>## Inseason - Preseason 
-##            -508.9801</code></pre>
-<pre class="r"><code>meandiff_1 &lt;- res$test[-(1:2)]$coefficients[1]
+meandiff_1 &lt;- res$test[-(1:2)]$coefficients[1]
 
 
 #extract second tukey comparison and make into an object
-res$test[-(1:2)]$coefficients[2]</code></pre>
-<pre><code>## Postseason - Preseason 
-##              -647.1606</code></pre>
-<pre class="r"><code>meandiff_2 &lt;- res$test[-(1:2)]$coefficients[2]
+meandiff_2 &lt;- res$test[-(1:2)]$coefficients[2]
 
 
 #extract third tukey comparison and make into an object
-res$test[-(1:2)]$coefficients[3]</code></pre>
-<pre><code>## Postseason - Inseason 
-##             -138.1805</code></pre>
-<pre class="r"><code>meandiff_3 &lt;- res$test[-(1:2)]$coefficients[3]</code></pre>
-<p>We’ve already extracted mean differences for each comparison, so we only need to gather the residual standard deviation for this one. There are a few ways to do this, but the easiest is…</p>
+meandiff_3 &lt;- res$test[-(1:2)]$coefficients[3]</code></pre>
+<p>One thing to consider when doing the extraction this way is that we are working Named Numbers, which you can see below when running the first coefficient.</p>
+<pre class="r"><code>res$test[-(1:2)]$coefficients[1]</code></pre>
+<pre><code>## Inseason - Preseason 
+##            -508.9801</code></pre>
+<p>If you want just the number, then you can use the <mark>unname()</mark> function.</p>
+<pre class="r"><code>unname(meandiff_1)</code></pre>
+<pre><code>## [1] -508.9801</code></pre>
+<p>If you want the name of the object, use <mark>names()</mark>.</p>
+<pre class="r"><code>names(meandiff_1)</code></pre>
+<pre><code>## [1] &quot;Inseason - Preseason&quot;</code></pre>
+<p>We’ve already extracted mean differences for each comparison, so we only need to gather the residual standard deviation for this one. There are a few ways to do this, but the easiest is to call <mark>sigma</mark> from the model summary.</p>
 <pre class="r"><code>#extract the sd directly
 summary(fit)$sigma</code></pre>
 <pre><code>## [1] 1796.607</code></pre>
 <pre class="r"><code>#create pooled residual sd object
 pooled_sd_residual &lt;- summary(fit)$sigma</code></pre>
 <pre class="r"><code>#calculate effect sizes
-meandiff_1/pooled_sd_residual</code></pre>
-<pre><code>## Inseason - Preseason 
-##           -0.2833008</code></pre>
-<pre class="r"><code>meandiff_2/pooled_sd_residual</code></pre>
-<pre><code>## Postseason - Preseason 
-##             -0.3602127</code></pre>
-<pre class="r"><code>meandiff_3/pooled_sd_residual</code></pre>
-<pre><code>## Postseason - Inseason 
-##           -0.07691193</code></pre>
+effect_1_residual &lt;- meandiff_1/pooled_sd_residual
+effect_2_residual &lt;- meandiff_2/pooled_sd_residual
+effect_3_residual &lt;- meandiff_3/pooled_sd_residual
+
+
+
+
+#season column
+Season &lt;- c(names(meandiff_1), names(meandiff_2), names(meandiff_3))
+#effects column
+`Effect Size (Residual)` &lt;- c(effect_1_residual, effect_2_residual, effect_3_residual)
+
+#make residual effect dataframe
+effect_data_residual &lt;- as.data.frame(Season, `Effect Size (Residual)`) %&gt;%
+    mutate(`Effect Size (Residual)` = round(`Effect Size (Residual)`, 2))
+
+
+#knit into table
+knitr::kable(
+  effect_data_residual
+)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Season</th>
+<th align="right">Effect Size (Residual)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Inseason - Preseason</td>
+<td align="right">-0.28</td>
+</tr>
+<tr class="even">
+<td align="left">Postseason - Preseason</td>
+<td align="right">-0.36</td>
+</tr>
+<tr class="odd">
+<td align="left">Postseason - Inseason</td>
+<td align="right">-0.08</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div id="option-3-standardized-effect-size-using-all-variance-components" class="section level2">
 <h2>Option 3: Standardized Effect Size using All Variance Components</h2>
-<p>We need all random effect variance components, which in this model are just the residual and within-athlete variances. You’ve already seen these variances in the model summary, so these calculations can be done simply by hand, but since we’re using R lets extract them using the <strong>VarCorr</strong> function and take the square root of the sum.</p>
+<p>We need all random effect variance components, which in this model are both the residual and within-athlete variances. You’ve already seen these variances in the model summary, so these calculations can be done simply by hand, but since we’re using R lets extract them using <mark>VarCorr()</mark> and take the square root of the sum of both variance components.</p>
 <pre class="r"><code>#make VarCorr object from the model fit
 vc &lt;- VarCorr(fit)
 
@@ -388,83 +454,87 @@ sqrt(as.data.frame(vc)$vcov[1] + as.data.frame(vc)$vcov[2])</code></pre>
 <pre class="r"><code>#make pooled sd object
 pooled_sd_allvar &lt;- sqrt(as.data.frame(vc)$vcov[1] + as.data.frame(vc)$vcov[2])</code></pre>
 <pre class="r"><code>#calculate effect sizes
-meandiff_1/pooled_sd_allvar</code></pre>
-<pre><code>## Inseason - Preseason 
-##            -0.261422</code></pre>
-<pre class="r"><code>meandiff_2/pooled_sd_allvar</code></pre>
-<pre><code>## Postseason - Preseason 
-##             -0.3323941</code></pre>
-<pre class="r"><code>meandiff_3/pooled_sd_allvar</code></pre>
-<pre><code>## Postseason - Inseason 
-##           -0.07097215</code></pre>
-<div id="combine-effect-sizes-into-a-table" class="section level3">
-<h3>Combine Effect Sizes into a Table</h3>
-<p>Lastly, we can put the different effect size calculations into a table so we can more easily compare.</p>
-<pre class="r"><code>#gather cohen effect sizes
-inseason_preseason_cohen &lt;- cohens_d(inseason_data$Distance, preseason_data$Distance)
-postseason_preseason_cohen &lt;- cohens_d(postseason_data$Distance, preseason_data$Distance)
-postseason_inseason_cohen &lt;- cohens_d(postseason_data$Distance, inseason_data$Distance)
+effect_1_allvar &lt;- meandiff_1/pooled_sd_allvar
+effect_2_allvar &lt;- meandiff_2/pooled_sd_allvar
+effect_3_allvar &lt;- meandiff_3/pooled_sd_allvar
 
 
-#make dataframe
-effect_data_cohen &lt;- data.frame(
-  &quot;Season&quot; = c(&quot;Inseason - Preseason&quot;, &quot;Postseason - Preseason&quot;, &quot;Postseason - Inseason&quot;),
-  &quot;Effect Size Cohen&quot; = c(inseason_preseason_cohen, postseason_preseason_cohen, postseason_inseason_cohen))</code></pre>
-<pre class="r"><code>#make results into dataframes for more effect data binding
-comparison_1_effect_residual &lt;- as.data.frame(meandiff_1/pooled_sd_residual)
-comparison_2_effect_residual &lt;- as.data.frame(meandiff_2/pooled_sd_residual)
-comparison_3_effect_residual &lt;- as.data.frame(meandiff_3/pooled_sd_residual)
-
-comparison_1_effect_allvar &lt;- as.data.frame(meandiff_1/pooled_sd_allvar)
-comparison_2_effect_allvar &lt;- as.data.frame(meandiff_2/pooled_sd_allvar)
-comparison_3_effect_allvar &lt;- as.data.frame(meandiff_3/pooled_sd_allvar)
+#make All Variance effect column
+`Effect Size (All Variance)` &lt;- c(effect_1_allvar, effect_2_allvar, effect_3_allvar)
 
 
-#rename first column of data frame
-names(comparison_1_effect_residual)[1] &lt;- &quot;Effect Size (Residuals)&quot;
-names(comparison_2_effect_residual)[1] &lt;- &quot;Effect Size (Residuals)&quot;
-names(comparison_3_effect_residual)[1] &lt;- &quot;Effect Size (Residuals)&quot;
-
-names(comparison_1_effect_allvar)[1] &lt;- &quot;Effect Size (All Variance)&quot;
-names(comparison_2_effect_allvar)[1] &lt;- &quot;Effect Size (All Variance)&quot;
-names(comparison_3_effect_allvar)[1] &lt;- &quot;Effect Size (All Variance)&quot;
+#make all variance dataframe
+effect_data_allvar &lt;-   as.data.frame(Season, `Effect Size (All Variance)`) %&gt;%
+    mutate(`Effect Size (All Variance)` = round(`Effect Size (All Variance)`, 2))
 
 
-#bind data rows and join by Season
-effect_data &lt;- effect_data_cohen %&gt;%
-  left_join(bind_rows(comparison_1_effect_residual, comparison_2_effect_residual, comparison_3_effect_residual) %&gt;% 
-  #round effect size values to 2 decimal places
-  round(2) %&gt;%
-  #convert rownames to a column
-  rownames_to_column(var = &quot;Season&quot;), by = &quot;Season&quot;) %&gt;%
-  left_join(bind_rows(comparison_1_effect_allvar, comparison_2_effect_allvar, comparison_3_effect_allvar) %&gt;% 
-  round(2) %&gt;%
-  rownames_to_column(var = &quot;Season&quot;), by = &quot;Season&quot;) %&gt;%
-  rename(`Effect Size (Cohen)` = Effect.Size.Cohen) %&gt;%
-  mutate(`Effect Size (Cohen)` = round(`Effect Size (Cohen)`, 2))</code></pre>
-</div>
-<div id="view-effect-size-results" class="section level3">
-<h3>View Effect Size Results</h3>
-<pre class="r"><code>#view effect size dataframe
-library(DT)
-DT::datatable(effect_data, rownames = FALSE, options = list(dom= &quot;t&quot;))</code></pre>
-<div id="htmlwidget-1" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1">{"x":{"filter":"none","data":[["Inseason - Preseason","Postseason - Preseason","Postseason - Inseason"],[-0.51,-0.37,0.1],[-0.28,-0.36,-0.08],[-0.26,-0.33,-0.07]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Season<\/th>\n      <th>Effect Size (Cohen)<\/th>\n      <th>Effect Size (Residuals)<\/th>\n      <th>Effect Size (All Variance)<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","columnDefs":[{"className":"dt-right","targets":[1,2,3]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
-</div>
+#knit into table
+knitr::kable(
+effect_data_allvar 
+)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Season</th>
+<th align="right">Effect Size (All Variance)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Inseason - Preseason</td>
+<td align="right">-0.26</td>
+</tr>
+<tr class="even">
+<td align="left">Postseason - Preseason</td>
+<td align="right">-0.33</td>
+</tr>
+<tr class="odd">
+<td align="left">Postseason - Inseason</td>
+<td align="right">-0.07</td>
+</tr>
+</tbody>
+</table>
 <div id="add-effect-size-interpretations" class="section level3">
 <h3>Add Effect Size Interpretations</h3>
-<p>There have a been different propositions regarding the qualitative interpretation of ES’s. The original interpretation given by Cohen suggests &lt;0.5 is a small effect, 0.5 to 0.7 is a moderate effect, and &gt;0.8 is interpreted as a large effect. More recently Hopkins suggested a revised scale with threshold values at 0.2 (small), 0.6 (moderate), 1.2 (large), 2.0 (very large) and &gt;4 (nearly perfect).</p>
-<pre class="r"><code>effect_interpretation &lt;- effect_data %&gt;%
-  dplyr::select(Season, `Effect Size (Cohen)`) %&gt;%
+<p>Lastly, we can add interpretations to these effects. There have a been different propositions regarding the qualitative interpretation of ES’s. The original interpretation given by Cohen suggests &lt;0.5 is a small effect, 0.5 to 0.7 is a moderate effect, and &gt;0.8 is interpreted as a large effect. More recently Hopkins suggested a revised scale with threshold values at 0.2 (small), 0.6 (moderate), 1.2 (large), 2.0 (very large) and &gt;4 (nearly perfect).</p>
+<pre class="r"><code>effect_interpretation &lt;- effect_data_cohen %&gt;%
    #interpret effect size
   mutate(`Hopkins Interpretation` = ifelse(abs(`Effect Size (Cohen)`) &lt;= 0.2, &quot;Trivial&quot;, ifelse(abs(`Effect Size (Cohen)`) &lt;= 0.6, &quot;Small&quot;, ifelse(abs(`Effect Size (Cohen)`) &lt;= 1.2, &quot;Moderate&quot;, ifelse(abs(`Effect Size (Cohen)`) &lt;= 2, &quot;Large&quot;, ifelse(abs(`Effect Size (Cohen)`) &lt;= 4, &quot;Very Large&quot;, &quot;Nearly Perfect&quot;)))))) %&gt;%
   mutate(`Cohen&#39;s Interpretation` = ifelse(abs(`Effect Size (Cohen)`) &lt;= 0.2, &quot;Small&quot;, ifelse(abs(`Effect Size (Cohen)`) &lt;= 0.5, &quot;Medium&quot;, &quot;Large&quot;)))
 
 
-DT::datatable(effect_interpretation, rownames = FALSE, options = list(dom= &quot;t&quot;))</code></pre>
-<div id="htmlwidget-2" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2">{"x":{"filter":"none","data":[["Inseason - Preseason","Postseason - Preseason","Postseason - Inseason"],[-0.51,-0.37,0.1],["Small","Small","Trivial"],["Large","Medium","Small"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Season<\/th>\n      <th>Effect Size (Cohen)<\/th>\n      <th>Hopkins Interpretation<\/th>\n      <th>Cohen's Interpretation<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","columnDefs":[{"className":"dt-right","targets":1}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
-<p>As noted earlier and worth mentioning again, there are a number of ways to calculate standardized effect sizes and there really is not one “right” way. The important thing is to detail which method you are using and make sure to label it appropriately. For instance, using residual SD and the square root of the sum of variance components from a mixed model for standardization are not traditional Cohen’s d statistics, so they should be referred to as standardized effect sizes.</p>
+knitr::kable(effect_interpretation)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Season</th>
+<th align="right">Effect Size (Cohen)</th>
+<th align="left">Hopkins Interpretation</th>
+<th align="left">Cohen’s Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Inseason - Preseason</td>
+<td align="right">-0.51</td>
+<td align="left">Small</td>
+<td align="left">Large</td>
+</tr>
+<tr class="even">
+<td align="left">Postseason - Preseason</td>
+<td align="right">-0.37</td>
+<td align="left">Small</td>
+<td align="left">Medium</td>
+</tr>
+<tr class="odd">
+<td align="left">Postseason - Inseason</td>
+<td align="right">0.10</td>
+<td align="left">Trivial</td>
+<td align="left">Small</td>
+</tr>
+</tbody>
+</table>
+<p>As noted earlier and worth mentioning again, there are a number of ways to calculate standardized effect sizes and there really is not one “right” way. Using residual SD and the square root of the sum of variance components from a mixed model for standardization are not traditional Cohen’s d statistics, so they should be referred to as standardized effect sizes. What we noticed from this dataset is that using the residual variance and all variance components in the denominator produced similar effect statistics becuase the within-athlete variability was quite small compared to the between-athlete variability. However, both methods produced noticably different results than what we got by calculating cohen’s d directly from the data. The important thing is to detail which method you are using and make sure to label it appropriately.</p>
 </div>
 </div>
 </div>
