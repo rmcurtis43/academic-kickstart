@@ -186,11 +186,23 @@ Another important thing to note here, the difference estimates from this Tukey a
 
 # Calculating Effect Sizes
 
-There isn't a consensus on the best or preferred method of calculating effect sizes from within-subject designs. I'm also not aware of any packages that compute standardized effect sizes directly from a lmer object. Jake Westfall goes into great detail [here](http://jakewestfall.org/blog/index.php/2016/03/25/five-different-cohens-d-statistics-for-within-subject-designs/) on the subject, detailing several of the ways cohens d and d-like effect sizes can be estimated. The important thing to note here is transparency when reporting a standardized effect size.
+I'm not aware of any consensus on the best or preferred method of calculating effect sizes from within-subject designs. Jake Westfall goes into great detail [here](http://jakewestfall.org/blog/index.php/2016/03/25/five-different-cohens-d-statistics-for-within-subject-designs/) on the subject, detailing several of the ways cohens d and d-like effect sizes can be estimated. The important thing to note here is transparency when reporting a standardized effect size.
 
 ## Option 1: Classical Cohen's D Calculation
 
-First, we can separate out the players distances by season.
+The <mark>effectsize()</mark> function in the [effectsize](https://cran.r-project.org/web/packages/effectsize/effectsize.pdf) package will give you classic Cohen's d effect statistics from the lmer model output...
+
+
+```{r, warning=FALSE, message=FALSE}
+library(effectsize)
+ 
+effectsize::effectsize(fit) 
+
+```
+
+However, this output is somewhat limited, in that we are missing the Preseason - Postseason comparison effect statistic. The **effectsize** package supports lmerTest objects but unfortunatly will not work with our Tukey output. To get all comparison effect statistics using a traditional Cohen's d, we can directly compare each variable. 
+
+To do that, we need to separate out the players distances by season phase.
 ```{r}
 preseason_data <- data %>% filter(Season == "Preseason") %>% dplyr::select(Distance)
 inseason_data <- data %>% filter(Season == "Inseason") %>% dplyr::select(Distance)
@@ -198,18 +210,18 @@ postseason_data <- data %>% filter(Season == "Postseason") %>% dplyr::select(Dis
 ```
 
 
-You can create a cohen's d function yourself. Credit to [this](https://stackoverflow.com/questions/15436702/estimate-cohens-d-for-effect-size) post on StackOverflow. I'm not using the absolute value of the mean difference - as in the original cohen equation - this way we can see the direction of the effect.
+There are several ways to do this. Firstly, you can write a cohen's d function yourself. Credit to [this](https://stackoverflow.com/questions/15436702/estimate-cohens-d-for-effect-size) post on StackOverflow. Note here that I'm not using the absolute value of the mean difference - as in the original cohen equation - this way we can see the direction of the effect.
 
 ```{r}
 cohens_d <- function(x, y) {
   lx <- length(x)- 1                  # Sample Size X
   ly <- length(y)- 1                  # Sample Size Y
-  md  <- mean(x) - mean(y)       # Mean Difference
+  md  <- mean(x) - mean(y)            # Mean Difference
   csd <- lx * var(x) + ly * var(y)
   csd <- csd/(lx + ly)
   csd <- sqrt(csd)                    # Pooled SD
   
-  md/csd                       # Cohen's d
+  md/csd                              # Cohen's d
 }
 
 
@@ -230,13 +242,13 @@ lsr::cohensD(preseason_data$Distance, inseason_data$Distance)
 ```
 
 
-The **effsize** package which also give you 95%CI.
+The **effsize** package has a cohen's d function which will also give you 95%CI.
 ```{r,warning=FALSE, message=FALSE}
 library(effsize)
 effsize::cohen.d(preseason_data$Distance, inseason_data$Distance)
 ```
 
-Given the options, let's go ahead and use the <mark>cohen_d()</mark> function, create a dataframe and knit it into a table.
+Given the options, let's go ahead and use the <mark>cohen_d()</mark> function we wrote, create a dataframe and knit it into a table.
 
 ```{r}
 #gather cohen effect sizes
