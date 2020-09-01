@@ -24,7 +24,7 @@ Skill in analyzing longitudinal data is important for a number of practical reas
 Measuring the magnitude or strength of the change of a health or performance outcome can also aid in the evaluation of the positive or negative consequences of an intervention or can be used to compare discrete groups/phases/conditions (e.g., male vs female, preseason vs. inseason, turf vs. grass surface). When assessing differences between said conditions, a common approach is using Cohen’s d, which is very similar to a standard difference score or z-score. Classic Cohen’s d requires the mean difference between conditions in the numerator and pooled standard deviation (i.e., combined standard deviation of each condition) in the denominator.
 
 
-$Cohen's d Effect Size = (mean 1 – mean 2)  ÷  between-athlete pooled SD$
+Cohen's d Effect Size = (mean 1 – mean 2)  ÷  between-athlete pooled SD
 
 
 As mentioned, mixed models are unique becuase they can account for a number of variances (between-athlete/within-athlete, variability associated with time). However, this does present some issues when calculating classic cohen's d directly from the model  because Cohen's d was developed for between-subjects research. With that in mind, the aim of this post is to set up a basic mixed model with player tracking (workload) data in R and explore the number of options one has to calculate effect statistics from the results. 
