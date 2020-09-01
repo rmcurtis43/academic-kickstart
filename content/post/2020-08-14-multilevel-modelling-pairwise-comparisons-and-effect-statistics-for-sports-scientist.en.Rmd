@@ -17,18 +17,17 @@ image:
 projects: []
 ---
 
-### Why sports scientist should be familiar with mixed effects (multi-level) modeling and effect statistics...
+### Why should sports scientist  be familiar with mixed effects (multi-level) modeling and effect statistics...
 
-Skill in analyzing longitudinal data is particularly important for assessing phenomena that fluctuate over time. There are several important considerations when conducting longitudinal analysis including; accounting for the dependencies created by repeated measures, dealing with missing or unbalanced data (common occurrence in athlete monitoring practices), differentiating between-athlete from within-athlete variability, accounting for time-varying (e.g., workload, perceived fatigue) and time-invariant factors (e.g., sex, role, position) and establishing the influence of time [(Windt et al. 2018)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6169745/). Multi-level models are very useful to a sports scientist because they can handle aforementioned complexities that are a natural part of player tracking/monitoring. 
+Skill in analyzing longitudinal data is important for a number of practical reasons including; accounting for the dependencies created by repeated measures (athletes being measured over time), dealing with missing or unbalanced data (common occurrence in athlete monitoring practices), differentiating between-athlete from within-athlete variability, accounting for time-varying (e.g., workload, perceived fatigue) and time-invariant factors (e.g., gender, role, position) and establishing the influence of time [(Windt et al. 2018)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6169745/). Multi-level models are very useful to a sports scientist because they can handle aforementioned complexities that are a natural part of player tracking/monitoring. 
 
-Measuring the magnitude or strength of the change of a health or performance outcome can aid in the evaluation of the positive or negative consequences of an intervention or can be used to compare groups (e.g., male vs female, preseason vs. inseason, turf vs. grass surface). In order to assess change, difference betweeen mean group measures must be standardized. When comparing means, a common approach is using Cohen’s d, which is very similar to a standard difference score or z-score. Classic Cohen’s d requires a pooled standard deviation (SD) in the denominator and the mean difference in the numerator, while standard difference scores and z-scores typically using either between-athlete SD or control group SD (see below).
+Measuring the magnitude or strength of the change of a health or performance outcome can also aid in the evaluation of the positive or negative consequences of an intervention or can be used to compare discrete groups/phases/conditions (e.g., male vs female, preseason vs. inseason, turf vs. grass surface). When assessing differences between said conditions, a common approach is using Cohen’s d, which is very similar to a standard difference score or z-score. Classic Cohen’s d requires the mean difference between conditions in the numerator and pooled standard deviation (i.e., combined standard deviation of each condition) in the denominator.
 
 
-Cohen's d Effect Size = (mean 1 – mean 2) ÷ between-athlete pooled SD
+$Cohen's d Effect Size = (mean 1 – mean 2)  ÷  between-athlete pooled SD$
 
-Standard Difference Score or Zscore = (mean 1 – mean 2) ÷ between-athlete SD
 
-As mentioned, mixed models are unique becuase they can account for a number of variances (between-athlete/within-athlete, variability associated with time). However, this does present some issues when calculating classic cohen's d directly from the model results because Cohen's d was developed for between-subjects research. With that in mind, the aim of this post is to set up a basic mixed model with player tracking (workload) data in R and explore the number of options one has to calculate effect statistics from the results. 
+As mentioned, mixed models are unique becuase they can account for a number of variances (between-athlete/within-athlete, variability associated with time). However, this does present some issues when calculating classic cohen's d directly from the model  because Cohen's d was developed for between-subjects research. With that in mind, the aim of this post is to set up a basic mixed model with player tracking (workload) data in R and explore the number of options one has to calculate effect statistics from the results. 
 
 
 
@@ -39,12 +38,46 @@ library(shiny)
 
 
 
-# Load data, identify structure and view dataframe
+# Simulate Training Load Data
 
-```{r, results='hide', warning=FALSE, message=FALSE}
+First things first, we need some player load data...which is not freely available but we can simulate a dataset to work with. With this data we are creating 20 athletes, with 50 sessions each (1000 total observations), assigning a mix of sessions by season phase (10 preseason, 30 inseason, 10 postseason), assigning each athlete a position, and randomly assigning a Total Distance value from a normal distribution with the mean equal to 5000 meters and a standard deviation of 1000 meters.
+
+The problem with randomly assigning player distances from a normal distribution is that there will not be random variance in load by player, thus defeating the purpose of using mixed effects modeling. The random effect would be 0...so we need to introduce some variability. To do this, we can create a effect coefficient for each athlete and apply that to each individual player's session load.
+
+Also, we are going to look at differences between season phases so we need to introduce some variability in our independent variable. For the purposes of this example, we are going to assume that distances loads are ~1.2x higher on average during the preseason as compared to inseason or postseason phases. 
+
+
+```{r, warning=FALSE, message=FALSE}
 library(tidyverse)
-#load data
-data <- readRDS(file = "data.rds")
+#set.seed for reproducibility
+set.seed(415)
+
+#simulate data
+Athlete <- rep(paste('Athlete', 1:20), each = 50)
+Session <- rep(1:50, times = 20)
+Season <- rep(c("Preseason", "Inseason", "Postseason"), times = c(10, 30, 10))
+Position <- rep(c("Point Guard", "Shooting Guard", "Small Forward", "Power Forward", "Center"), each = 50)
+Distance <- rnorm(n = length(Athlete), mean = 5000, sd = 1000)
+
+
+#create athlete effects
+athleteeff = rnorm(20, 1, 0.1) 
+athleteeff_data <- data.frame(Athlete = paste('Athlete', 1:20), athleteeff)
+
+
+#merge simulated data into a dataframe
+data <- data.frame(Athlete, Session, Season, Position, Distance) %>%
+  #increase preseason loads by 1.2x
+  mutate(Distance = case_when(
+    Season == "Preseason" ~ Distance*1.2, 
+    TRUE ~ Distance
+  )
+) %>%
+  #join player effect coefficient
+  left_join(athleteeff_data, "Athlete") %>%
+  mutate(Distance = Distance*athleteeff) %>%
+  select(-athleteeff)
+
 ```
 
 It's always good to take a look at the structure of the data. Main thing is we want to make sure the data is in long format and each column is formatted appropriately (numeric, date, factor, etc.).
@@ -59,7 +92,9 @@ head(data)
 
 # Fit Mixed Effects Model with lme4
 
-With this model, we are doing a basic LMM, with Distance covered as our dependent variable, Season (preseason, inseason and postseason) as our independent variable (fixed effect) and we are clustering the data by athlete (random effect). Although one of the benefits of LMM is its abililtiy to incorporate multiple factors into a model (providing the ability to account for various contextual factors), for demonstration purposes we'll keep the model as a simple univariate example. 
+With this model, we are doing a basic LMM, with Distance covered as our dependent variable, Season (preseason, inseason and postseason) as our independent variable (fixed effect) and we are clustering the data by athlete (random effect). Although one of the benefits of LMM is its abililtiy to incorporate multiple factors into a model (providing the ability to account for the variance of various contextual factors), for these purposes we'll keep the model simple. 
+
+I always load the **lmerTest** package instead of **lme4** by itself, doing so will load **lme4** by default and the output will give you a p-value for each coefficient (which is typically needed in academia...not so much elsewhere). 
 
 ```{r,warning=FALSE, message=FALSE}
 library(lmerTest)
@@ -71,12 +106,13 @@ fit <- lmer(Distance ~ Season + (1|Athlete), data = data)
 summary(fit)
 ```
 
+We are given a few important metrics from the <mark>summary()</mark> function, such as the model estimates (coefficients) for each factor and also significant differences (to be explained). Fixed effects factor coefficients are listed in alphabetical order, so the Inseason phase (i.e. intercept) is listed first. It's helpful to think of these models as a linear regression, so the first factor will always be the intercept when working with a discrete independent variables. The significance of the first variable is always telling you if the intercept is significantly different from 0...it's not telling you anything about its relationship with the other factors. Important things with this model summary are that the preseason is significantly different from inseason (at this point we don't know if preseason loads are significantly different from inseason loads or if postseason is different from preseason).  If we want to know where the differences are between factors, we need to run a post-hoc/follow-up statisical test such as Tukey HSD (which we will).
 
 # A More Detailed Summary...
 
-I prefer to use the <mark>tab_model()</mark> function in the sjPlot package by Daniel Lüdecke. You get a nice html table output that is publication worthy. There are several options to customize the table output, you can find that tutorial [here](https://strengejacke.github.io/sjPlot/articles/tab_model_estimates.html). In addition to the standard components you get with a traditional <mark>summary()</mark> output, <mark>tab_model()</mark> provides a few other components we need to interpet the model such as the ICC value and marginal/conditoinal R^2^ values. 
+I prefer to use the <mark>tab_model()</mark> function in the sjPlot package by Daniel Lüdecke to get a more detailed view of the model. You get a nice html table output that is publication worthy. There are several options to customize the table output, you can find that tutorial [here](https://strengejacke.github.io/sjPlot/articles/tab_model_estimates.html). In addition to the standard components you get with a traditional <mark>summary()</mark> output, <mark>tab_model()</mark> provides a few other components we need to interpet the model such as the ICC value and marginal/conditional R^2^ values. 
 
-The higher the ICC value the more justified the use of LMM vs. a more traditional statistic (ANOVA in this instance). ICC's can be interpeted as the proportion of variance explained by clustering. An ICC > 0.1 is generally accepted as the minimal threshold for justifying the use of LMM, so in other words, at least 10% of the variance in Distance should be explained by clustering the observations by player. 
+The higher the ICC value the more justified the use of LMM vs. a more traditional statistic (repeated measures ANOVA would be comparable in this instance). ICC's can be interpeted as the proportion of variance explained by clustering. An ICC > 0.1 is generally accepted as the minimal threshold for justifying the use of LMM, so in other words at least 10% of the variance in Distance should be explained by clustering the observations by player. 
 
 
 ```{r,warning=FALSE, message=FALSE}
@@ -87,17 +123,17 @@ tab_model(fit)
 
 ```
 
-In this instance, the ICC is 0.15 so the use of LMM is appropriate. 
+In this instance, the ICC is 0.22 so the use of LMM is appropriate. 
 
-The other outputs of interest are our Marginal and Conditoinal R^2^ values (calculated based on [Nakagawa et al.](https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/j.2041-210x.2012.00261.x)). These show the proportion of variance explained by the fixed effect only (Marginal R^2^) and fixed + random effect (Conditional R^2^), respectively. 
+The other outputs of interest are our Marginal and Conditional R^2^ values (calculated based on [Nakagawa et al.](https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/j.2041-210x.2012.00261.x)). These show the proportion of variance explained by the fixed effect only (Marginal R^2^) and fixed + random effect (Conditional R^2^), respectively. 
 
-So for this model, we would could conclude that season phase is explaining very little (~1%) about the distance covered in each session. It's important to have this context becuase although there are significant differences in distance covered between the season phases, season phase by itself is not a meaninful determinant of session distance. On the other hand, the conditional R^2^ is ~0.16, so we can see that the proportion of variance explained by the combination of season and accounting for individual variance is much higher. The marginal R^2^ is 0.01 (fixed effect) and the ICC is 0.15 (random effect), so a conditional R^2^ of 0.16 makes sense. 
+So for this model, we would could conclude that season phase is explaining ~12% of the distance covered in each session. It's important to have this context becuase although there are significant differences in distance covered between the season phases, season phase by itself is not a strong determinant of session distance. On the other hand, the conditional R^2^ is ~0.31, so we can see that the proportion of variance explained by the combination of season phase and accounting for individual variance is much higher. When we sum the marginal R^2^ and the ICC value, we get a value quite close to our Conditional R^2^, this makes sense.
 
 
 
-# Visualize Data
+# Visualize Model Effects
 
-If you want to visualize the model (or any other mixed effects model [generalized, ordinal, etc.]), I would recommend using the ggeffects package (also by Daniel Lüdecke) combined with ggplot2 functions. You can find the ggeffects tutorial [here](https://strengejacke.github.io/ggeffects/). You can use the **fit** object with <mark>ggpredict()</mark> to create a data frame for plotting, pass a <mark>plot()</mark> function, and then add *<mark>ggplot2()</mark> functions as needed to clean up the visualization. Here is a sample output from <mark>ggpredict()</mark>.
+If you want to visualize the model (or any other mixed effects model [generalized, ordinal, etc.]), I would recommend using the ggeffects package (also by Daniel Lüdecke) combined with ggplot2 functions. You can find the ggeffects tutorial [here](https://strengejacke.github.io/ggeffects/). You can use the **fit** object with <mark>ggpredict()</mark> to create a data frame for plotting, pass a <mark>plot()</mark> function, and then add <mark>ggplot2()</mark> functions as needed to clean up the visualization. Here is a sample output from <mark>ggpredict()</mark>.
 
 
 ```{r,warning=FALSE, message=FALSE}
@@ -117,12 +153,12 @@ Here is the plot output...
 ```{r, warning=FALSE, message=FALSE}
 #create plot
 plot_data %>%
-  #reorder independent variable
+  #reorder factor levels for plotting
   mutate(x = ordered(x, levels = c("Preseason", "Inseason", "Postseason"))) %>%
   #use plot function with ggpredict objects
   plot() + 
   #add ggplot2 as needed
-  theme_blank() + ylim(c(3000,5500)) + ggtitle("Session Distance by Season Phase")
+  theme_blank() + ylim(c(3000,7000)) + ggtitle("Session Distance by Season Phase")
   
 
 ```
@@ -162,7 +198,7 @@ postseason_data <- data %>% filter(Season == "Postseason") %>% dplyr::select(Dis
 ```
 
 
-You can create a cohen's d function yourself. Credit to [this](https://stackoverflow.com/questions/15436702/estimate-cohens-d-for-effect-size) post on StackOverflow. I'm not using the absolute value of the mean difference - as in the original cohen equation - so we can see the direction of the effect.
+You can create a cohen's d function yourself. Credit to [this](https://stackoverflow.com/questions/15436702/estimate-cohens-d-for-effect-size) post on StackOverflow. I'm not using the absolute value of the mean difference - as in the original cohen equation - this way we can see the direction of the effect.
 
 ```{r}
 cohens_d <- function(x, y) {
@@ -204,15 +240,15 @@ Given the options, let's go ahead and use the <mark>cohen_d()</mark> function, c
 
 ```{r}
 #gather cohen effect sizes
-inseason_preseason_cohen <- cohens_d(inseason_data$Distance, preseason_data$Distance)
-postseason_preseason_cohen <- cohens_d(postseason_data$Distance, preseason_data$Distance)
+preseason_inseason_cohen <- cohens_d(preseason_data$Distance, inseason_data$Distance)
+preseason_postseason_cohen <- cohens_d(preseason_data$Distance, postseason_data$Distance)
 postseason_inseason_cohen <- cohens_d(postseason_data$Distance, inseason_data$Distance)
 
 
 #make cohen dataframe
 effect_data_cohen <- data.frame(
-  "Season" = c("Inseason - Preseason", "Postseason - Preseason", "Postseason - Inseason"),
-  "Effect Size Cohen" = c(inseason_preseason_cohen, postseason_preseason_cohen, postseason_inseason_cohen))%>%
+  "Season" = c("Preseason - Inseason", "Preseason - Postseason", "Postseason - Inseason"),
+  "Effect Size Cohen" = c(preseason_inseason_cohen, preseason_postseason_cohen, postseason_inseason_cohen))%>%
   rename(`Effect Size (Cohen)` = Effect.Size.Cohen) %>%
   mutate(`Effect Size (Cohen)` = round(`Effect Size (Cohen)`, 2))
   
@@ -223,7 +259,7 @@ knitr::kable(effect_data_cohen)
 
 ## Option 2: Standardized Effect Size using Residual Standard Deviation
 
-This option is somewhat popular because the residual standard deviation is often assumed equivalent to the between-subjects standard deviation. However, that's not always the case and is highly dependent on the data. As we'll see, this methods produces noticable different results from classic cohen's d.
+This option is somewhat popular because the residual standard deviation is often assumed equivalent to the between-subjects standard deviation. However, that's not always the case and is highly dependent on the data.
 
 ### Extract Mean Differences
 
@@ -308,7 +344,10 @@ knitr::kable(
 
 ## Option 3: Standardized Effect Size using All Variance Components
 
-We need all random effect variance components, which in this model are both the residual and within-athlete variances. You've already seen these variances in the model summary, so these calculations can be done simply by hand, but since we're using R lets extract them using <mark>VarCorr()</mark> and take the square root of the sum of both variance components.
+Probably the effect size calculation with the most academic support is taking the square root of the sum of all variance components in the model. This method was first discussed by Westfall, Judd, and Kenny [(2014)](https://doi.apa.org/doiLanding?doi=10.1037%2Fxge0000014) and later included in a statisical tutorial of Effect Sizes and Power Analysis in Mixed Effects Models by Marc Brysbaert and Michaël Stevens [(2018)](https://www.journalofcognition.org/articles/10.5334/joc.10/).
+
+
+For this one we obviously need to gather all random effect variance components, which in this model are both the residual and within-athlete variances. You've already seen these in the model summary, so these calculations can be done simply by hand, but since we're using R lets extract them using <mark>VarCorr()</mark>.
 
 
 ```{r,warning=FALSE, message=FALSE}
@@ -346,6 +385,16 @@ effect_data_allvar
 
 ```
 
+For comparison purposes, we can combine all three effect statistics into a single dataframe. 
+
+```{r}
+knitr::kable(
+effect_data_cohen %>%
+  left_join(effect_data_residual, by = "Season") %>%
+  left_join(effect_data_allvar, by = "Season")
+)
+
+```
 
 
 ### Add Effect Size Interpretations
@@ -365,5 +414,6 @@ knitr::kable(effect_interpretation)
 
 
 
-As noted earlier and worth mentioning again, there are a number of ways to calculate standardized effect sizes and there really is not one "right" way. Using residual SD and the square root of the sum of variance components from a mixed model for standardization are not traditional Cohen's d statistics, so they should be referred to as standardized effect sizes. What we noticed from this dataset is that using the residual variance and all variance components in the denominator produced similar effect statistics becuase the within-athlete variability was quite small compared to the between-athlete variability. However, both methods produced noticably different results than what we got by calculating cohen's d directly from the data. The important thing is to detail which method you are using and make sure to label it appropriately. 
+As noted earlier and worth mentioning again, there are a number of ways to calculate standardized effect sizes and there really is not a universally accepted "right" way. Using residual SD and the square root of the sum of variance components from a mixed model for standardization are not traditional Cohen's d statistics, so they should be referred to as standardized effect sizes. What we noticed from this dataset is that using the residual variance and all variance components in the denominator produced similar effect statistics becuase the within-athlete variability was quite small compared to the between-athlete variability. Both model effect statistic methods produced similar results than what we got by calculating cohen's d directly from the data, again due to lower within-athlete variability. Although the effect statistics were similar in this simulated dataset, this will not always be the case, particularly when more complex models are used (e.g., multiple random intercepts, random slopes, or nested models) The important thing is to detail which method you are using and make sure to label it appropriately. 
+
 
