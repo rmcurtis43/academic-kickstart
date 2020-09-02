@@ -253,7 +253,7 @@ Marginal R<sup>2</sup> / Conditional R<sup>2</sup>
 </table>
 <p>In this instance, the ICC is 0.22 so the use of LMM is appropriate.</p>
 <p>The other outputs of interest are our Marginal and Conditional R<sup>2</sup> values (calculated based on <a href="https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/j.2041-210x.2012.00261.x">Nakagawa et al.</a>). These show the proportion of variance explained by the fixed effect only (Marginal R<sup>2</sup>) and fixed + random effect (Conditional R<sup>2</sup>), respectively.</p>
-<p>So for this model, we would could conclude that season phase is explaining ~12% of the distance covered in each session. It’s important to have this context becuase although there are significant differences in distance covered between the season phases, season phase by itself is not a strong determinant of session distance. On the other hand, the conditional R<sup>2</sup> is ~0.31, so we can see that the proportion of variance explained by the combination of season phase and accounting for individual variance is much higher. When we sum the marginal R<sup>2</sup> and the ICC value, we get a value quite close to our Conditional R<sup>2</sup>, this makes sense.</p>
+<p>So for this model, we would conclude that season phase is explaining ~12% of the distance covered in each session. It’s important to have this context becuase although there are significant differences in distance covered between the season phases, season phase by itself is not a strong determinant of session distance. On the other hand, the conditional R<sup>2</sup> is ~0.31, so we can see that the proportion of variance explained by the combination of season phase and accounting for individual variance is much higher. When we sum the marginal R<sup>2</sup> and the ICC value, we get a value quite close to our Conditional R<sup>2</sup>, this makes sense.</p>
 </div>
 <div id="visualize-model-effects" class="section level1">
 <h1>Visualize Model Effects</h1>
@@ -585,7 +585,7 @@ effect_data_cohen %&gt;%
 <pre class="r"><code>effect_interpretation &lt;- effect_data_cohen %&gt;%
    #interpret effect size
   mutate(`Hopkins Interpretation` = ifelse(abs(`Effect Size (Cohen)`) &lt;= 0.2, &quot;Trivial&quot;, ifelse(abs(`Effect Size (Cohen)`) &lt;= 0.6, &quot;Small&quot;, ifelse(abs(`Effect Size (Cohen)`) &lt;= 1.2, &quot;Moderate&quot;, ifelse(abs(`Effect Size (Cohen)`) &lt;= 2, &quot;Large&quot;, ifelse(abs(`Effect Size (Cohen)`) &lt;= 4, &quot;Very Large&quot;, &quot;Nearly Perfect&quot;)))))) %&gt;%
-  mutate(`Cohen&#39;s Interpretation` = ifelse(abs(`Effect Size (Cohen)`) &lt;= 0.2, &quot;Small&quot;, ifelse(abs(`Effect Size (Cohen)`) &lt;= 0.5, &quot;Medium&quot;, &quot;Large&quot;)))
+  mutate(`Cohen&#39;s Interpretation` = ifelse(abs(`Effect Size (Cohen)`) &lt; 0.5, &quot;Small&quot;, ifelse(abs(`Effect Size (Cohen)`) &lt; 0.8, &quot;Medium&quot;, &quot;Large&quot;)))
 
 
 knitr::kable(effect_interpretation)</code></pre>
