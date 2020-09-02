@@ -127,7 +127,7 @@ In this instance, the ICC is 0.22 so the use of LMM is appropriate.
 
 The other outputs of interest are our Marginal and Conditional R^2^ values (calculated based on [Nakagawa et al.](https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/j.2041-210x.2012.00261.x)). These show the proportion of variance explained by the fixed effect only (Marginal R^2^) and fixed + random effect (Conditional R^2^), respectively. 
 
-So for this model, we would could conclude that season phase is explaining ~12% of the distance covered in each session. It's important to have this context becuase although there are significant differences in distance covered between the season phases, season phase by itself is not a strong determinant of session distance. On the other hand, the conditional R^2^ is ~0.31, so we can see that the proportion of variance explained by the combination of season phase and accounting for individual variance is much higher. When we sum the marginal R^2^ and the ICC value, we get a value quite close to our Conditional R^2^, this makes sense.
+So for this model, we would conclude that season phase is explaining ~12% of the distance covered in each session. It's important to have this context becuase although there are significant differences in distance covered between the season phases, season phase by itself is not a strong determinant of session distance. On the other hand, the conditional R^2^ is ~0.31, so we can see that the proportion of variance explained by the combination of season phase and accounting for individual variance is much higher. When we sum the marginal R^2^ and the ICC value, we get a value quite close to our Conditional R^2^, this makes sense.
 
 
 
@@ -409,6 +409,8 @@ effect_data_cohen %>%
 ```
 
 
+
+
 ### Add Effect Size Interpretations
 Lastly, we can add interpretations to these effects. There have a been different propositions regarding the qualitative interpretation of ES’s. The original interpretation given by Cohen suggests <0.5 is a small effect, 0.5 to 0.7 is a moderate effect, and >0.8 is interpreted as a large effect. More recently Hopkins suggested a revised scale with threshold values at 0.2 (small), 0.6 (moderate), 1.2 (large), 2.0 (very large) and >4 (nearly perfect).
 
@@ -417,7 +419,7 @@ Lastly, we can add interpretations to these effects. There have a been different
 effect_interpretation <- effect_data_cohen %>%
    #interpret effect size
   mutate(`Hopkins Interpretation` = ifelse(abs(`Effect Size (Cohen)`) <= 0.2, "Trivial", ifelse(abs(`Effect Size (Cohen)`) <= 0.6, "Small", ifelse(abs(`Effect Size (Cohen)`) <= 1.2, "Moderate", ifelse(abs(`Effect Size (Cohen)`) <= 2, "Large", ifelse(abs(`Effect Size (Cohen)`) <= 4, "Very Large", "Nearly Perfect")))))) %>%
-  mutate(`Cohen's Interpretation` = ifelse(abs(`Effect Size (Cohen)`) <= 0.2, "Small", ifelse(abs(`Effect Size (Cohen)`) <= 0.5, "Medium", "Large")))
+  mutate(`Cohen's Interpretation` = ifelse(abs(`Effect Size (Cohen)`) < 0.5, "Small", ifelse(abs(`Effect Size (Cohen)`) < 0.8, "Medium", "Large")))
 
 
 knitr::kable(effect_interpretation)
