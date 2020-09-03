@@ -37,8 +37,8 @@ projects: []
 <div id="simulate-training-load-data" class="section level1">
 <h1>Simulate Training Load Data</h1>
 <p>First things first, we need some player load data…which is not freely available but we can simulate a dataset to work with. With this data we are creating 20 athletes, with 50 sessions each (1000 total observations), assigning a mix of sessions by season phase (10 preseason, 30 inseason, 10 postseason), assigning each athlete a position, and randomly assigning a Total Distance value from a normal distribution with the mean equal to 5000 meters and a standard deviation of 1000 meters.</p>
-<p>The problem with randomly assigning player distances from a normal distribution is that there will not be random variance in load by player, thus defeating the purpose of using mixed effects modeling. The random effect would be 0…so we need to introduce some variability. To do this, we can create a effect coefficient for each athlete and apply that to each individual player’s session load.</p>
-<p>Also, we are going to look at differences between season phases so we need to introduce some variability in our independent variable. For the purposes of this example, we are going to assume that distances loads are ~1.2x higher on average during the preseason as compared to inseason or postseason phases.</p>
+<p>The problem with randomly assigning player distances from a normal distribution is that there will not be random variance in load by player, thus defeating the purpose of using mixed effects modeling. The random effect would be 0…so we need to introduce some variability. To do this, we can create an effect coefficient for each athlete and apply that to each individual player’s session load.</p>
+<p>Also, we are going to look at differences between season phases so we need to introduce some variability in our independent variable. For the purposes of this example, we are going to assume that distances are ~1.2x higher on average during the preseason as compared to inseason or postseason phases.</p>
 <pre class="r"><code>library(tidyverse)
 #set.seed for reproducibility
 set.seed(415)
@@ -66,6 +66,7 @@ data &lt;- data.frame(Athlete, Session, Season, Position, Distance) %&gt;%
 ) %&gt;%
   #join player effect coefficient
   left_join(athleteeff_data, &quot;Athlete&quot;) %&gt;%
+  #multiply distances by each athletes effect coefficient
   mutate(Distance = Distance*athleteeff) %&gt;%
   select(-athleteeff)</code></pre>
 <p>It’s always good to take a look at the structure of the data. Main thing is we want to make sure the data is in long format and each column is formatted appropriately (numeric, date, factor, etc.).</p>
@@ -127,7 +128,8 @@ summary(fit)</code></pre>
 ##             (Intr) SsnPst
 ## SeasnPstssn -0.164       
 ## SeasonPrssn -0.164  0.250</code></pre>
-<p>We are given a few important metrics from the <mark>summary()</mark> function, such as the model estimates (coefficients) for each factor and also significant differences (to be explained). Fixed effects factor coefficients are listed in alphabetical order, so the Inseason phase (i.e. intercept) is listed first. It’s helpful to think of these models as a linear regression, so the first factor will always be the intercept when working with a discrete independent variables. The significance of the first variable is always telling you if the intercept is significantly different from 0…it’s not telling you anything about its relationship with the other factors. Important things with this model summary are that the preseason is significantly different from inseason (at this point we don’t know if preseason loads are significantly different from inseason loads or if postseason is different from preseason). If we want to know where the differences are between factors, we need to run a post-hoc/follow-up statisical test such as Tukey HSD (which we will).</p>
+<p>We are given a few important metrics from the <mark>summary()</mark> function, such as the model estimates (coefficients) for each factor and also significant differences (to be explained). Fixed effects factor coefficients are listed in alphabetical order by default, so the Inseason phase (i.e. intercept) is listed first. If you want a particular factor as the intercept then you need to create an Ordered Factor (you can do this with the <mark>fct_relevel()</mark> function, which is available when you load the <strong>tidyverse</strong> package).</p>
+<p>Even though we are working with a categorical independent variable it’s helpful to keep in mind that these models are linear regressions (lmer = Linear Mixed Effects Regression), so the first factor will always be the intercept. The significance of the first variable is always telling you if the intercept is significantly different from 0…it’s not telling you anything about its relationship with the other factors. Important things with this model summary are that the preseason is significantly different from inseason (at this point we don’t know if preseason loads are different from postseason loads). If we want to know where the differences are between factors, we need to run a post-hoc/follow-up statisical test such as Tukey HSD (which we will).</p>
 </div>
 <div id="a-more-detailed-summary" class="section level1">
 <h1>A More Detailed Summary…</h1>
