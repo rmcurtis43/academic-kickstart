@@ -10,7 +10,7 @@ authors:
 superuser: true
 
 # Role/position
-role: Athletic Performance Data Manager
+role: Sports Science | Athletic Performance
 
 # Organizations/Affiliations
 organizations:
@@ -45,17 +45,19 @@ education:
 social:
 - icon: envelope
   icon_pack: fas
-  link: '#contact'  # For a direct email link, use "rmcurtis43@yahoo.com".
+  link: 'rmcurtis43@yahoo.com'  # For a direct email link, use "rmcurtis43@yahoo.com".
 - icon: twitter
   icon_pack: fab
-  link: https://twitter.com/_RyanCurtis
+  link: https://twitter.com/RyanM_Curtis
 - icon: linkedin
   icon_pack: fab
   link: https://www.linkedin.com/in/ryan-curtis-phd-atc-cscs-420aa989/
 - icon: researchgate
   icon_pack: fab
   link: https://www.researchgate.net/profile/Ryan_Curtis5
-
+- icon: github
+  icon_pack: fab
+  link: https://github.com/rmcurtis43
 
 # - icon: google-scholar
  # icon_pack: ai
@@ -79,4 +81,7 @@ user_groups:
 - Visitors
 ---
 
-Ryan Curtis is a Sports and Data Scientist with a professional basketball team in the NBA. He has over 15 years of professional experience serving in multiple domains (sports science/analysis, S&C, sports medicine) and across multiple settings (professional sport, collegiate sport, military special forces, academia). Prior to his work in the NBA, Ryan was the Director of Athlete Performance and Safety at the Korey Stringer Institute (KSI) while completing a PhD focused on exercise and sports science at the University of Connecticut (UConn). Prior to KSI/UConn he was a strength and conditioning coach and athletic trainer with the United States Marine Corps, United States Tennis Association, and for professional athletes on the ATP/WTA World Tour. Ryan has authored over 15 peer-reviewed research publications and book chapters, presented featured lectures and research presentations at international conferences and is an author of the book “Elite Soccer Players: Maximizing Performance and Safety”. His professional and research interests are in optimizing athlete/human health and performance through integration of technology and analytics. Ryan is experienced with several data management/visualization and web development tools: R, Shiny, SQL, HTML, CSS, Tableau, Power BI.
+Hi, I'm a sports scientist and performance coach interested in optimizing athlete health and performance through integration of science, technology and analytics. I currently work in professional sport but have had the priviledge of serving in multiple domains (sports science/analytics, S&C, sports medicine) across a variety of settings (professional/collegiate sport, military special forces, academia). I've developed a stong passion for data science throughout my career and work regularly with several data management, visualization and web development tools such as R, Shiny, SQL, HTML, CSS, Tableau, Power BI. If you're interested in my work, you can find my blog posts, books, book chapters, and peer-reviewed research here. Please feel free to reach out via social media or email, look forward to connecting with you.
+
+
+
