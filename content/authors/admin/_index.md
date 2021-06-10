@@ -81,7 +81,7 @@ user_groups:
 - Visitors
 ---
 
-Hi, I'm a sports scientist and performance coach interested in optimizing athlete health and performance through integration of science, technology and analytics. I currently work in professional sport but have had the priviledge of serving in multiple domains (sports science/analytics, S&C, sports medicine) across a variety of settings (professional/collegiate sport, military special forces, academia). I've developed a stong passion for data science throughout my career and work regularly with several data management, visualization and web development tools such as R, Shiny, SQL, HTML, CSS, Tableau, Power BI. If you're interested in my work, you can find my blog posts, books, book chapters, and peer-reviewed research here. Please feel free to reach out via social media or email, look forward to connecting with you.
+Hi, I'm a sports scientist and performance coach interested in optimizing athlete health and performance through the integration of science, technology and analytics. I currently work in professional sport but have had the priviledge of serving in multiple domains (sports science/analytics, S&C, sports medicine) across a variety of settings (professional/collegiate sport, military special forces, academia). I've developed a stong passion for data science throughout my career and work regularly with several data management, visualization and web development tools such as R, Shiny, SQL, HTML, CSS, Tableau, Power BI. If you're interested in my work, you can find my blog posts, books, book chapters, and peer-reviewed research here. Please feel free to reach out via social media or email, look forward to connecting with you.
 
 
 
