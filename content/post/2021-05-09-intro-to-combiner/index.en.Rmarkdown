@@ -1,0 +1,135 @@
+---
+title: Intro to {combineR}
+author: ''
+date: '2021-06-09'
+slug: intro-to-combiner
+categories: []
+tags:
+  - rstats
+  - sports science
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2021-06-09T21:28:32-05:00'
+featured: yes
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+
+
+**{combineR}** is a small package developed to easily gather and explore over 20 years of NFL Draft Combine data from [Pro Football Reference.](https://www.pro-football-reference.com/) In addition to being able to pull data, the package also currently supports benchmarking tables for all NFL combine tests by position. This post will walk you through the current functions.
+
+***
+
+## Installation
+
+``` r
+#Not yet on CRAN
+
+  
+#Install the development version from GitHub  
+install.packages("devtools")
+devtools::install_github("rmcurtis43/combineR") 
+```
+
+***
+
+## How to use combineR
+
+### `pull_combine_data()`
+
+
+You can pull single season data by simply entering a year (e.g., `2021`) in the `pull_combine_data()` function. 
+
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(combineR)
+library(tidyverse) #used for data manipulation, not needed for pulling data with combineR
+```
+
+
+```{r}
+# piping in the head() function to display just the first few rows
+pull_combine_data(2021) %>% 
+  head()
+```
+
+
+You can get data between user defined seasons by using start_year and end_year...
+
+```{r}
+pull_combine_data(start_year = 2019, end_year = 2021) %>%
+  head()
+```
+
+
+Or if you want to pull all data (i.e. 2000-current) then just use `pull_combine_data()` without entering start_year or end_year.
+
+```{r}
+pull_combine_data() %>%
+  head()
+```
+
+
+***
+
+### `benchmark_table()`
+
+
+The `benchmark_table()` funtion was written to provide practitioners with practical scores for benchmarking their athletes performance. Benchmarking is critical to the athlete evaluation process as it provides objective feedback as to how an athlete's physical performance or anthropometrics compare to NFL Combine norms.
+
+The function accepts a single test (e.g. test = '40yd'), followed by a list of positions to be included in the table (e.g. positions = c('DB', 'DL', 'LB', 'OL', 'QB', 'RB', 'TE', 'WR')). Please note tests and positions must be wrapped in parentheses, also the 'positions' input requires a string of characters between c() (i.e., indicates a vector of positions to include in the table).
+
+Accepted inputs for **test** include:
+
+* Height
+* Weight
+* Vertical Jump
+* Broad Jump
+* Bench
+* 3cone
+* Shuttle
+* 40yd
+
+
+Accepted inputs for **positions** include any combination of:
+
+* DB
+* DL
+* LB
+* OL
+* QB
+* RB
+* TE
+* WR
+* PK
+* LS
+ 
+
+
+Example below.
+
+```{r,eval=FALSE, warning=FALSE, message=FALSE}
+benchmark_table(test = '40yd', positions = c('DB', 'DL', 'LB', 'OL', 'QB', 'RB', 'TE', 'WR'))
+```
+![percentile-table-example](percentile_table_example.png)
+
+
+You can create a table with a single position as well...
+```{r,eval=FALSE, warning=FALSE, message=FALSE}
+benchmark_table(test = 'Broad Jump', positions = c('LB'))
+```
+![percentile-table-example-single](percentile_table_example_single.png)
+
+
+
+***
+
+This package continues to be developed and will change over time. The goal is to make this as useful to sports scientists, coaches, and practitioners as possible. Please reach out to me on social medial (I'm on [twitter](https://twitter.com/RyanM_Curtis) and [LinkedIn](https://www.linkedin.com/in/ryan-curtis-phd-atc-cscs-d-420aa989/), email, or open up an issue on this [github repo](https://github.com/rmcurtis43/combineR) if you have ideas on how to improve. Thanks and look forward to hearing from you.
+
+
+![combineR-twitter](combineR_twitter.png)
